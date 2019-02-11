@@ -1,0 +1,8 @@
+create_table "users", force: :cascade do |t|
+  t.integer "team_id"
+  t.string "name"
+  t.string "email"
+  t.datetime "created_at", null: false
+  t.timestamp "updated_at", null: false
+  t.index ["team_id"], name: "index_team_id_on_users"
+end
