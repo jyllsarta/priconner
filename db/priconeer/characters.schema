@@ -1,0 +1,2 @@
+create_table "characters", force: :cascade do |t|
+end

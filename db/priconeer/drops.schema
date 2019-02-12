@@ -1,0 +1,2 @@
+create_table "drops", force: :cascade do |t|
+end

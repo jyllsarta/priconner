@@ -1,0 +1,2 @@
+create_table "forge_items_requirements", force: :cascade do |t|
+end

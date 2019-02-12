@@ -1,0 +1,2 @@
+create_table "equips", force: :cascade do |t|
+end
