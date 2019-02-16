@@ -1,2 +1,5 @@
 create_table "drops", force: :cascade do |t|
+    t.integer :stage_id, null: false, default: 0
+    t.integer :item_id,  null: false, default: 0
+    t.integer :priority, null: false, default: 0
 end

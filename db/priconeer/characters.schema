@@ -1,5 +1,5 @@
 create_table "characters", force: :cascade do |t|
     t.string  :name,           null: false, default: 0
     t.integer :initial_rarity, null: false, default: 0
-    t.integer :position, null: false, default: 0
+    t.integer :position,       null: false, default: 0
 end
