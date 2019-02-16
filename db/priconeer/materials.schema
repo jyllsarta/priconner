@@ -1,2 +1,0 @@
-create_table "materials", force: :cascade do |t|
-end

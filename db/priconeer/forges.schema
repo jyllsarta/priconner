@@ -1,2 +1,5 @@
 create_table "forges", force: :cascade do |t|
+    t.integer :forge_item_id   , null: false, default: 0
+    t.integer :material_item_id, null: false, default: 0
+    t.integer :count           , null: false, default: 0
 end

@@ -1,2 +1,6 @@
 create_table "equips", force: :cascade do |t|
+    t.integer :character_id, null: false, default: 0
+    t.integer :item_id, null: false, default: 0
+    t.integer :position_id, null: false, default: 0
+    t.integer :rank, null: false, default: 0
 end

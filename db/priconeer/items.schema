@@ -1,6 +1,7 @@
 create_table "items", force: :cascade do |t|
     t.string  :name,        null: false, default: ""
     t.integer :category_id, null: false, default: 0
+    t.boolean :is_material, null: false, default: 0
     t.integer :hp         , null: false, default: 0
     t.integer :atk        , null: false, default: 0
     t.integer :def        , null: false, default: 0
