@@ -2,7 +2,7 @@
 
 プリコネ攻略するやつ
 
-## run
+## Run local
 
 ```shell
 bundle install
