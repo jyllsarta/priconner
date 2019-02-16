@@ -4,7 +4,6 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string           default(""), not null
-#  category_id :integer          default(0), not null
 #  is_material :boolean          default(FALSE), not null
 #  hp          :integer          default(0), not null
 #  atk         :integer          default(0), not null
@@ -21,6 +20,7 @@
 #  hit         :integer          default(0), not null
 #  eva         :integer          default(0), not null
 #  drain       :integer          default(0), not null
+#  category    :integer          default(0), not null
 #
 
 class Item < ApplicationRecord
