@@ -17,3 +17,7 @@ rails s
 * `bundle exec ridgepole -c config/database.yml -E development --apply -f db/Schemafile`
 
 * `bundle exec annotate`
+
+## エンドポイントを生やしたら
+
+* `bundle exec annotate -r`
