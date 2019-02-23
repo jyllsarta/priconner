@@ -23,5 +23,9 @@
 #  is_material :boolean          default(FALSE), not null
 #
 
+## idの定義
+## ランク_任意の連番_素材フラグとする
+## 00_00_00
+
 class Item < ApplicationRecord
 end
