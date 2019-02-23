@@ -1,28 +1,32 @@
 namespace :fetch do
-  task :character => :environment do 
-    # キャラ詳細の取得
-    url = "https://appmedia.jp/priconne-redive/2781829"
+  task :drops => :environment do 
+    # n章のドロップ
+    url = "https://gamewith.jp/pricone-re/article/show/99456"
     html = open(url) {|f| f.read}
     doc = Nokogiri::HTML.parse(html, nil, nil)
 
-    equips_table = doc.css(:h3).select{|d| d.content == "ランク毎の装備一覧"}.first.next.next
+    table = doc.css(".puri_itiran-table table").first
 
-    requirements = []
-    equips_table.css(:tr).each do |row|
-      rank = []
-      row.css(:td).each do |td|
-        img = td.css(:img).first
-        a = td.css(:a)&.first
-        attributes = OpenStruct.new
-        attributes.image_id = img.attr(:class)&.split&.select{|x| x.starts_with?("wp")}&.first
-        attributes.img_src = img.attr(:src)
-        attributes.alt = img.attr(:alt)
-        attributes.link_to = a&.attr(:href)
-        rank.push(attributes.to_h)
+    result = []
+    table.css(:tr).each do |tr|
+      stage = OpenStruct.new
+      stage.stage_name = tr.css(:th).text
+      td = tr.css(:td)
+      as = td.css(:a)
+
+      # ドロップのリストを取り込み(priority順であることを期待)
+      stage.drops = []
+      as.each do |a|
+        img = a.css(:img)&.first
+        drop = OpenStruct.new
+        drop.img_src = img&.attr(:src)
+        drop.link_to = a&.attr(:href)
+        stage.drops.push(drop.to_h)
       end
-      requirements.push(rank)
+
+      result.push(stage.to_h)
     end
-    write(requirements, "chika.hash")
+    write(result, "drops_10.hash")
   end
 
   private
