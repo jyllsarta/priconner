@@ -25,7 +25,7 @@ namespace :fetch do
 
       result.push(stage.to_h)
     end
-    write(result, "drops_10.hash")
+    write(result.to_h.to_json, "drops_10.hash")
   end
 
 
@@ -36,6 +36,9 @@ namespace :fetch do
 
     result = OpenStruct.new
     result.params = []
+
+    # アイテム名
+    result.item_name = doc.css(:h1).text.match(/「(.*)」/).captures.first
 
     # 上昇パラメータ一覧
     status = doc.css(".puri_soubi_table table").first
@@ -56,7 +59,7 @@ namespace :fetch do
       result.materials.push(material.to_h)
     end
 
-    write(result.to_h, "paradin.hash")
+    write(result.to_h.to_json, "paradin.hash")
   end
 
   task :characters => :environment do
@@ -92,7 +95,7 @@ namespace :fetch do
     result.position = position
     result.type = type
 
-    write(result.to_h, "zyta.hash")
+    write(result.to_h.to_json, "zyta.hash")
   end
 
   private
