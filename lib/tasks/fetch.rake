@@ -59,6 +59,42 @@ namespace :fetch do
     write(result.to_h, "paradin.hash")
   end
 
+  task :characters => :environment do
+    url = "https://gamewith.jp/pricone-re/article/show/92875"
+    doc = fetch(url)
+    result = OpenStruct.new
+
+    # 要求装備
+    # こいつはかなり苦しい... もうちょい安全なセレクタを書きたいけど全然ない...
+    rank_headers = doc.css(:th).select{|th| th.text.starts_with?("Rank")}
+    result.equips = []
+    rank_headers.each do |rank_header|
+      rankup_materials = []
+      tr = rank_header.parent.next
+      tr.css(:td).each do |td|
+        material = OpenStruct.new
+        material.link_to = td.css(:a)&.first&.attr(:href)
+        material.img_src = td.css(:img).first.attr("data-original") || td.css(:img).first.attr(:src)
+        rankup_materials.push(material.to_h)
+      end
+      result.equips.push(rankup_materials)
+    end
+
+
+    # 初期レアリティ、位置
+    # これもセレクタきつい...
+    initial_rarity_index = doc.css(".puri_kihon_table th").select{|th| th.text.starts_with?("初期レア度")}
+    initial_rarity = initial_rarity_index.first.parent.css(:td).text
+    result.initial_rarity = initial_rarity
+
+    position_type_index = doc.css(".puri_kihon_table th").select{|th| th.text.starts_with?("タイプ")}
+    position, type = position_type_index.first.parent.css(:td).text.split("/").map(&:strip)
+    result.position = position
+    result.type = type
+
+    write(result.to_h, "zyta.hash")
+  end
+
   private
   def write(content, filename)
     File.open("tmp/#{filename}", "w") do |f|
