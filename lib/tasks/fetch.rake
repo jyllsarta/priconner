@@ -98,6 +98,29 @@ namespace :fetch do
     write(result.to_h.to_json, "zyta.hash")
   end
 
+  task :item_indexes => :environment do
+    url = "https://gamewith.jp/pricone-re/article/show/94204"
+    doc = fetch(url)
+    result = OpenStruct.new
+
+    result.items = []
+    doc.css(".puri_equip-table table").each do |table|
+      table.css(:tr).each do |tr|
+        # インデックス行をすっ飛ばす
+        next if tr.css(:th).length > 0
+        # 銀枠装備欄にのみ謎の空trがあるので、空っぽかったら飛ばす
+        next if tr.css(:a).length == 0
+        item = OpenStruct.new
+        td = tr.css(:td).first
+        item.name = td.css(:a).first.text
+        item.link_to = td.css(:a).first.attr(:href)
+        item.img_src = td.css(:img).first.attr("data-original") || td.css(:img).first.attr(:src)
+        result.items.push(item.to_h)
+      end
+    end
+    write(result.to_h.to_json, "items.hash")
+  end
+
   private
   def write(content, filename)
     File.open("tmp/#{filename}", "w") do |f|
