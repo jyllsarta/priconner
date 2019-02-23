@@ -2,8 +2,7 @@ namespace :fetch do
   task :drops => :environment do 
     # n章のドロップ
     url = "https://gamewith.jp/pricone-re/article/show/99456"
-    html = open(url) {|f| f.read}
-    doc = Nokogiri::HTML.parse(html, nil, nil)
+    doc = fetch(url)
 
     table = doc.css(".puri_itiran-table table").first
 
@@ -29,11 +28,48 @@ namespace :fetch do
     write(result, "drops_10.hash")
   end
 
+
+  task :items => :environment do
+    # Item, Forgeの取得
+    url = "https://gamewith.jp/pricone-re/article/show/99065"
+    doc = fetch(url)
+
+    result = OpenStruct.new
+    result.params = []
+
+    # 上昇パラメータ一覧
+    status = doc.css(".puri_soubi_table table").first
+    status.css(:tr)[1..-1].each do |tr|
+      params = OpenStruct.new
+      params.key = tr.css(:th).text
+      params.value = tr.css(:td).text
+      result.params.push(params.to_h)
+    end
+
+    # 素材
+    result.materials = []
+    materials = doc.css(".puri-sozai_table table").first
+    materials.css(:td).each do |td|
+      material = OpenStruct.new
+      material.img_src = td.css(:img).first.attr("data-original") || td.css(:img).first.attr(:src)
+      material.text = td.text
+      result.materials.push(material.to_h)
+    end
+
+    write(result.to_h, "paradin.hash")
+  end
+
   private
   def write(content, filename)
     File.open("tmp/#{filename}", "w") do |f|
       f.write(content)
     end
+  end
+
+
+  def fetch(url)
+    html = open(url) {|f| f.read}
+    Nokogiri::HTML.parse(html, nil, nil)
   end
 end
 
