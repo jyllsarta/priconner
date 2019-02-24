@@ -17,4 +17,8 @@ create_table "items", force: :cascade do |t|
     t.integer :hit        , null: false, default: 0
     t.integer :eva        , null: false, default: 0
     t.integer :drain      , null: false, default: 0
+
+    # for gamewith migration
+    t.integer :gw_image_id, null: false, default: 0
+    t.integer :gw_page_id , null: false, default: 0
 end

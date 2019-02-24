@@ -15,6 +15,28 @@ namespace :import do
       item[to_column_name(kv[:key])] = kv[:value]
     end
     item.save!
+  end
+
+  # アイテム一覧から名前とIDのペアだけ作る
+  # (ID系ルールは一旦無視してしまうので、何らか対策は必要)
+  task :item_indexes => :environment do
+    puts "this task will DELETE ALL Item. are you sure? Y/n"
+    raise "ok bye~~" unless STDIN.gets.chomp == "Y"
+    
+    path = "tmp/items.hash"
+    hash = File.open(path, "r") do |f|
+      content = f.read
+      JSON.parse(content, {symbolize_names: true})
+    end
+    Item.delete_all
+
+    hash[:items].each do |item|
+      Item.create!(
+        name: item[:name],
+        gw_page_id: item[:link_to].split("/").last,
+        gw_image_id: item[:img_src].split("/").last.sub("_s.png",""),
+      )
+    end
 
   end
 
