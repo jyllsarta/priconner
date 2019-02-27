@@ -29,9 +29,9 @@ namespace :fetch do
   end
 
 
-  task :items => :environment do
+  task :items, [:page_id] => :environment do |_, args|
     # Item, Forgeの取得
-    url = "https://gamewith.jp/pricone-re/article/show/99065"
+    url = "https://gamewith.jp/pricone-re/article/show/#{args[:page_id]}"
     doc = fetch(url)
 
     result = OpenStruct.new
@@ -52,14 +52,17 @@ namespace :fetch do
     # 素材
     result.materials = []
     materials = doc.css(".puri-sozai_table table").first
-    materials.css(:td).each do |td|
-      material = OpenStruct.new
-      material.img_src = td.css(:img).first.attr("data-original") || td.css(:img).first.attr(:src)
-      material.text = td.text
-      result.materials.push(material.to_h)
+    # アイテム直ドロップ系最序盤素材の場合はmaterialsが存在しないことがある
+    if materials.present?
+      materials.css(:td).each do |td|
+        material = OpenStruct.new
+        material.img_src = td.css(:img).first.attr("data-original") || td.css(:img).first.attr(:src)
+        material.text = td.text
+        result.materials.push(material.to_h)
+      end
     end
 
-    write(result.to_h.to_json, "paradin.hash")
+    write(result.to_h.to_json, "#{args[:page_id]}.hash")
   end
 
   task :characters => :environment do

@@ -2,8 +2,8 @@ namespace :import do
   # テーブル毎に必要なハッシュを与えて読み込む
 
   # アイテムの基本情報を埋める
-  task :items => :environment do
-    path = "tmp/paradin.hash"
+  task :items, [:page_id] => :environment do |_, args|
+    path = "tmp/#{args.page_id}.hash"
     hash = File.open(path, "r") do |f|
       content = f.read
       JSON.parse(content, {symbolize_names: true})
@@ -11,7 +11,6 @@ namespace :import do
 
     item = Item.find_by(name: hash[:item_name])
     hash[:params].each do |kv|
-      debugger
       item[to_column_name(kv[:key])] = kv[:value]
     end
     item.save!
@@ -38,6 +37,18 @@ namespace :import do
       )
     end
 
+    puts "全アイテムの上昇パラメータ・素材情報を取得します。時間がかかります。 続行？ (Y/n)"
+    raise "ok bye~~" unless STDIN.gets.chomp == "Y"
+
+    Item.all.each do |item|
+      pp item
+      Rake::Task["fetch:items"].invoke(item.gw_page_id)
+      Rake::Task["fetch:items"].reenable
+      Rake::Task["import:items"].invoke(item.gw_page_id)
+      Rake::Task["import:items"].reenable
+      sleep(1)
+      #TODO 素材をimport
+    end
   end
 
   private
