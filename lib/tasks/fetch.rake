@@ -101,13 +101,37 @@ namespace :fetch do
     write(result.to_h.to_json, "zyta.hash")
   end
 
+
+  # キャラ一覧
+  task :character_indexes => :environment do
+    url = "https://gamewith.jp/pricone-re/article/show/92923"
+    doc = fetch(url)
+    result = OpenStruct.new
+
+    table = doc.css(".puri_chara table")
+    result.characters = []
+    table.css(:tr)[1..-1].each do |tr|
+      character = OpenStruct.new
+      tds = tr.css(:td)
+      character.name = tds[0].css(:a).first.text
+      character.img_src = tds[0].css(:a).css(:img).first.attr("data-original") || tds[0].css(:a).css(:img).first.attr(:src)
+      character.link_to = tds[0].css(:a)&.first&.attr(:href)
+      character.first_rarity = tds[1].text
+      character.position = tds[2].text
+
+      result.characters.push(character.to_h)
+    end
+
+    write(result.to_h.to_json, "characters.hash")
+  end
+
   task :item_indexes => :environment do
     url = "https://gamewith.jp/pricone-re/article/show/94204"
     doc = fetch(url)
     result = OpenStruct.new
 
     result.items = []
-    doc.css(".puri_equip-table table").each do |table|
+    doc.css(".puri_equip-table table tbody").each do |tr|
       table.css(:tr).each do |tr|
         # インデックス行をすっ飛ばす
         next if tr.css(:th).length > 0
