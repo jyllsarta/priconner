@@ -116,7 +116,7 @@ namespace :fetch do
       character.name = tds[0].css(:a).first.text
       character.img_src = tds[0].css(:a).css(:img).first.attr("data-original") || tds[0].css(:a).css(:img).first.attr(:src)
       character.link_to = tds[0].css(:a)&.first&.attr(:href)
-      character.first_rarity = tds[1].text
+      character.initial_rarity = tds[1].text
       character.position = tds[2].text
 
       result.characters.push(character.to_h)
