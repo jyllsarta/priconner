@@ -20,7 +20,7 @@ rails s
 
 * `rails 'import:item_indexes'`
   * 警告はすべて Y で続行
-  * Itemテーブルが埋まる
+  * Item, Forgeテーブルが埋まる
 * `rails 'import:character_indexes'`
   * 警告はすべて Y で続行
   * Equip, Characterテーブルが埋まる

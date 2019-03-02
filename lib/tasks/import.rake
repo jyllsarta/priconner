@@ -14,12 +14,24 @@ namespace :import do
       item[to_column_name(kv[:key])] = kv[:value]
     end
     item.save!
+
+    # 素材も行く
+    hash[:materials].each do |matreial|
+      gw_image_id =  matreial[:img_src].split("/").last.sub("_s.png","")
+      material_item_id = Item.find_by(gw_image_id: gw_image_id).id
+      count = matreial[:text].split("×")[1] #なんか...これも表記揺れありそうだな... なかったわ
+      Forge.find_or_create_by(
+        forge_item_id: item.id,
+        material_item_id: material_item_id,
+        count: count
+      )
+    end
   end
 
   # アイテム一覧から名前とIDのペアだけ作る
   # (ID系ルールは一旦無視してしまうので、何らか対策は必要)
   task :item_indexes => :environment do
-    puts "this task will DELETE ALL Item. are you sure? Y/n"
+    puts "this task will DELETE ALL Item and Forge. are you sure? Y/n"
     raise "ok bye~~" unless STDIN.gets.chomp == "Y"
     
     path = "tmp/items.hash"
@@ -48,6 +60,7 @@ namespace :import do
 
     puts "全アイテムの上昇パラメータ・素材情報を取得します。時間がかかります。 続行？ (Y/n)"
     raise "ok bye~~" unless STDIN.gets.chomp == "Y"
+    Forge.delete_all
 
     Item.all.each do |item|
       pp item
@@ -57,7 +70,6 @@ namespace :import do
       Rake::Task["import:items"].invoke(item.gw_page_id)
       Rake::Task["import:items"].reenable
       sleep(1)
-      #TODO 素材をimport
     end
   end
 
