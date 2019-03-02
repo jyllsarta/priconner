@@ -35,6 +35,15 @@ namespace :import do
         gw_page_id: item[:link_to].split("/").last,
         gw_image_id: item[:img_src].split("/").last.sub("_s.png",""),
       )
+      # 素材系アイテムだった場合、(欠片)か(設計図)を追加で生成する
+      if item[:primary_material_name].present?
+        Item.create!(
+          name: item[:primary_material_name],
+          gw_page_id: item[:link_to].split("/").last,
+          gw_image_id: item[:primary_material_img_src].split("/").last.sub("_s.png",""),
+          is_material: true
+        )
+      end
     end
 
     puts "全アイテムの上昇パラメータ・素材情報を取得します。時間がかかります。 続行？ (Y/n)"
@@ -42,6 +51,7 @@ namespace :import do
 
     Item.all.each do |item|
       pp item
+      next if item.is_material
       Rake::Task["fetch:items"].invoke(item.gw_page_id)
       Rake::Task["fetch:items"].reenable
       Rake::Task["import:items"].invoke(item.gw_page_id)

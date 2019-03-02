@@ -136,7 +136,7 @@ namespace :fetch do
     result = OpenStruct.new
 
     result.items = []
-    doc.css(".puri_equip-table table tbody").each do |tr|
+    doc.css(".puri_equip-table table").each do |table|
       table.css(:tr).each do |tr|
         # インデックス行をすっ飛ばす
         next if tr.css(:th).length > 0
@@ -147,6 +147,10 @@ namespace :fetch do
         item.name = td.css(:a).first.text
         item.link_to = td.css(:a).first.attr(:href)
         item.img_src = td.css(:img).first.attr("data-original") || td.css(:img).first.attr(:src)
+        # ~~の欠片 or ~~の設計図 or null(直ドロップ)
+        item.primary_material_name = tr.css(:td)[1]&.css(:a)&.first&.text
+        image_or_null = tr.css(:td)[1]&.css(:a)&.css(:img)&.first
+        item.primary_material_img_src = image_or_null&.attr("data-original") || image_or_null&.attr(:src)
         result.items.push(item.to_h)
       end
     end
