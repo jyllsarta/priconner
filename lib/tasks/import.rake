@@ -130,6 +130,46 @@ namespace :import do
     end
   end
 
+  # ドロップとステージ一覧の保存
+  # (ID系ルールは一旦無視してしまうので、何らか対策は必要)
+  task :drop_indexes => :environment do
+    puts "this task will DELETE ALL Stage and Drop. are you sure? Y/n"
+    raise "ok bye~~" unless STDIN.gets.chomp == "Y"
+    
+    path = "tmp/drops.hash"
+    hash = File.open(path, "r") do |f|
+      content = f.read
+      JSON.parse(content, {symbolize_names: true})
+    end
+    
+    Stage.delete_all
+    # まずステージを作る
+    hash[:drops].each do |drop|
+      Stage.find_or_create_by(
+        area: drop[:area],
+        location: drop[:location],
+        is_hard: drop[:is_hard]
+        )
+    end
+    
+    Drop.delete_all
+    # もう一度回してドロップ情報を埋める
+    hash[:drops].each do |drop|
+      stage_id = Stage.find_by(
+        area: drop[:area],
+        location: drop[:location],
+        is_hard: drop[:is_hard]
+      ).id
+
+      gw_page_id = drop[:link_to].split("/").last
+      Drop.find_or_create_by(
+        stage_id: stage_id,
+        item_id: item_id(gw_page_id),
+        priority: drop[:priority]
+      )
+    end
+    
+  end
 
   private
 

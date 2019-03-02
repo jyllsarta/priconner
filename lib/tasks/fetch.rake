@@ -1,33 +1,55 @@
 namespace :fetch do
-  task :drops => :environment do 
-    # n章のドロップ
-    url = "https://gamewith.jp/pricone-re/article/show/99456"
+
+  # 8-17章のみだけど、ドロップまとめからドロップ情報を一気に取り込み
+  task :drop_indexes => :environment do 
+    url = "https://gamewith.jp/pricone-re/article/show/130587"
     doc = fetch(url)
 
-    table = doc.css(".puri_itiran-table table").first
+    table = doc.css(".puri_sibori table").first
 
-    result = []
-    table.css(:tr).each do |tr|
-      stage = OpenStruct.new
-      stage.stage_name = tr.css(:th).text
-      td = tr.css(:td)
-      as = td.css(:a)
+    result = OpenStruct.new
+    result.drops = []
 
-      # ドロップのリストを取り込み(priority順であることを期待)
-      stage.drops = []
-      as.each do |a|
-        img = a.css(:img)&.first
-        drop = OpenStruct.new
-        drop.img_src = img&.attr(:src)
-        drop.link_to = a&.attr(:href)
-        stage.drops.push(drop.to_h)
+    table.css(:tr)[1..-1].each do |tr|
+      drop = OpenStruct.new
+      stage_name = tr.css(:td)[0].text
+      is_hard = stage_name.starts_with?("H")
+      # ‐ ←こいつはマイナスではなくハイフン(E2 80 90)なので超注意してくれ
+      area, location = stage_name.sub("H","").split("‐")
+      # なんかマイナスの場合もある... その場合には - でスプリットをかける
+      area, location = stage_name.sub("H","").split("-") if location.nil?
+
+      priority = 1
+      #メインドロップ
+      main_drops = tr.css(:td)[1]
+      main_drops.css(:a).each do |a|
+        link_to = a.attr(:href)
+        drop.link_to = link_to
+        drop.stage_name = stage_name
+        drop.is_hard = is_hard
+        drop.area = area
+        drop.location = location
+        drop.priority = priority
+        result.drops.push(drop.to_h)
+        priority += 1
       end
 
-      result.push(stage.to_h)
+      #サブドロップ
+      main_drops = tr.css(:td)[2]
+      main_drops.css(:a).each do |a|
+        link_to = a.attr(:href)
+        drop.link_to = link_to
+        drop.stage_name = stage_name
+        drop.is_hard = is_hard
+        drop.area = area
+        drop.location = location
+        drop.priority = priority
+        result.drops.push(drop.to_h)
+        priority += 1
+      end
     end
-    write(result.to_h.to_json, "drops_10.hash")
+    write(result.to_h.to_json, "drops.hash")
   end
-
 
   task :items, [:page_id] => :environment do |_, args|
     # Item, Forgeの取得

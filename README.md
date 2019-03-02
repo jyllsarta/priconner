@@ -16,6 +16,7 @@ rails s
 
 * `rails 'fetch:item_indexes'`
 * `rails 'fetch:character_indexes'`
+* `rails 'fetch:drop_indexes'`
 
 * `rails 'import:item_indexes'`
   * 警告はすべて Y で続行
@@ -23,8 +24,12 @@ rails s
 * `rails 'import:character_indexes'`
   * 警告はすべて Y で続行
   * Equip, Characterテーブルが埋まる
+* `rails 'import:drop_indexes'`
+  * 警告はすべて Y で続行
+  * Stage, Dropテーブルが埋まる
 
 キャラは要求素材(=Equip)を埋めるため、Itemに依存している。先にItemのimportを行うこと
+同様にDropはItem.idに依存するため、先にItemのimportが必要
 
 ## Schema update
 
