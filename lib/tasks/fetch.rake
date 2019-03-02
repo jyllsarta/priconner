@@ -65,10 +65,13 @@ namespace :fetch do
     write(result.to_h.to_json, "#{args[:page_id]}.hash")
   end
 
-  task :characters => :environment do
-    url = "https://gamewith.jp/pricone-re/article/show/92875"
+  task :characters, [:page_id] => :environment do |_, args|
+    url = "https://gamewith.jp/pricone-re/article/show/#{args[:page_id]}"
     doc = fetch(url)
     result = OpenStruct.new
+
+    #キャラ名(苦しい...)
+    result.name = doc.css(:h1).text.match(/】(.*)の評価/).captures.first
 
     # 要求装備
     # こいつはかなり苦しい... もうちょい安全なセレクタを書きたいけど全然ない...
@@ -86,7 +89,6 @@ namespace :fetch do
       result.equips.push(rankup_materials)
     end
 
-
     # 初期レアリティ、位置
     # これもセレクタきつい...
     initial_rarity_index = doc.css(".puri_kihon_table th").select{|th| th.text.starts_with?("初期レア度")}
@@ -98,7 +100,10 @@ namespace :fetch do
     result.position = position
     result.type = type
 
-    write(result.to_h.to_json, "zyta.hash")
+    # キャラ詳細ページID(名前で引くとイリヤ→イリヤ・オーンスタインとか水着スズメ→水着スズメ(サマー)とかでひどいことに...)
+    result.gw_page_id = args[:page_id]
+
+    write(result.to_h.to_json, "#{args[:page_id]}.hash")
   end
 
 

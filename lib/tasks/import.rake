@@ -51,8 +51,39 @@ namespace :import do
     end
   end
 
+  
+  # キャラ詳細、というか装備するアイテム一覧の取り込み
+  # (ID系ルールは一旦無視してしまうので、何らか対策は必要)
+  task :characters, [:page_id] => :environment do |_, args|
+    path = "tmp/#{args.page_id}.hash"
+    hash = File.open(path, "r") do |f|
+      content = f.read
+      JSON.parse(content, {symbolize_names: true})
+    end
 
-  # アイテム一覧から名前とIDのペアだけ作る
+    # 詳細ページのURLで一致を取る
+    character_id = Character.find_by(gw_page_id: hash[:gw_page_id]).id
+
+    hash[:equips].each_with_index do |rank, rank_i|
+      rank.each_with_index do |item, item_i|
+
+        # 未実装アイコンにはリンクが張っていないのでスキップするべき
+        next unless item[:link_to].present? 
+
+        gw_page_id = item[:link_to].split("/").last
+        # 冪等性確保のためfind or createにする
+        Equip.find_or_create_by(
+          character_id: character_id,
+          item_id: item_id(gw_page_id),
+          rank: rank_i + 1,
+          position: item_i + 1
+        )
+      end
+    end
+  end
+
+
+  # キャラ一覧ページの取り込み
   # (ID系ルールは一旦無視してしまうので、何らか対策は必要)
   task :character_indexes => :environment do
     puts "this task will DELETE ALL Character. are you sure? Y/n"
@@ -79,15 +110,16 @@ namespace :import do
     raise "ok bye~~" unless STDIN.gets.chomp == "Y"
 
     # TODO キャラ詳細に飛んで要求素材を埋める
-    #Character.all.each do |character|
-    #  pp character
-    #  Rake::Task["fetch:charcters"].invoke(item.gw_page_id)
-    #  Rake::Task["fetch:charcters"].reenable
-    #  Rake::Task["import:charcters"].invoke(item.gw_page_id)
-    #  Rake::Task["import:characters"].reenable
-    #  sleep(1)
-    #end
+    Character.all.each do |character|
+      pp character
+      Rake::Task["fetch:characters"].invoke(character.gw_page_id)
+      Rake::Task["fetch:characters"].reenable
+      Rake::Task["import:characters"].invoke(character.gw_page_id)
+      Rake::Task["import:characters"].reenable
+      sleep(1)
+    end
   end
+
 
   private
 
@@ -119,6 +151,11 @@ namespace :import do
       "後衛": 3,
     }
     mapping[key.to_sym]
+  end
+
+  def item_id(gw_page_id)
+    # 無かったら例外吐いてもらおう
+    Item.find_by(gw_page_id: gw_page_id).id
   end
 end
 
