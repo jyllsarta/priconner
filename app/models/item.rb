@@ -30,4 +30,8 @@
 ## 00_00_00
 
 class Item < ApplicationRecord
+    # 素材に指定されているForgeが引ける
+    has_many :forges, foreign_key: :forge_item_id
+    # 素材アイテムが直接引ける
+    has_many :materials, through: :forges, source: :material_item
 end

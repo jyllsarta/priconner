@@ -9,4 +9,6 @@
 #
 
 class Forge < ApplicationRecord
+    belongs_to :forge_item, class_name: "Item"
+    belongs_to :material_item , class_name: "Item"
 end

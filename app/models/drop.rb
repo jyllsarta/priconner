@@ -9,4 +9,6 @@
 #
 
 class Drop < ApplicationRecord
+    belongs_to :stage
+    belongs_to :item
 end
