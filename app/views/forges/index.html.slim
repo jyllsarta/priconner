@@ -5,8 +5,8 @@ table
         - @forge.attributes.each do |key, _|
             th
                 = key
-    tr
-        - @forges.each do |forge|
+    - @forges.each do |forge|
+        tr
             - forge.attributes.each do |_, value|
                 td
                     = value

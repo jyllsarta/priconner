@@ -1,1 +1,9 @@
-= "show"
+= link_to "Stagesに戻る", forges_path 
+h1
+    = "Stages##{@stage.id}"
+dl
+    - @stage.attributes.each do |key, value|
+        dt
+            = key
+        dd
+            = value

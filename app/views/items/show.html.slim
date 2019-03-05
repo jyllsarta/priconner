@@ -1,1 +1,9 @@
-= "show"
+= link_to "Itemsに戻る", forges_path 
+h1
+    = "Items##{@forge.id}"
+dl
+    - @forge.attributes.each do |key, value|
+        dt
+            = key
+        dd
+            = value

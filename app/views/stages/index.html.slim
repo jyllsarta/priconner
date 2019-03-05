@@ -1,1 +1,12 @@
-= "index"
+h1
+    | Stages
+table
+    tr
+        - @stage.attributes.each do |key, _|
+            th
+                = key
+    - @stages.each do |stage|
+        tr
+            - stage.attributes.each do |_, value|
+                td
+                    = value
