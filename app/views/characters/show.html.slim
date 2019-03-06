@@ -1,1 +1,9 @@
-= "show"
+= link_to "Charactersに戻る", characters_path 
+h1
+    = "Characters##{@character.id}"
+dl
+    - @character.attributes.each do |key, value|
+        dt
+            = key
+        dd
+            = value

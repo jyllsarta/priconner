@@ -1,8 +1,8 @@
-= link_to "Itemsに戻る", forges_path 
+= link_to "Itemsに戻る", items_path 
 h1
-    = "Items##{@forge.id}"
+    = "Items##{@item.id}"
 dl
-    - @forge.attributes.each do |key, value|
+    - @item.attributes.each do |key, value|
         dt
             = key
         dd

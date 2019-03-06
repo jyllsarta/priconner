@@ -1,1 +1,12 @@
-= "index"
+h1
+    | Equips
+table
+    tr
+        - @equip.attributes.each do |key, _|
+            th
+                = key
+    - @equips.each do |equip|
+        tr
+            - equip.attributes.each do |_, value|
+                td
+                    = value

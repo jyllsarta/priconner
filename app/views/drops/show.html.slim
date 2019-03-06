@@ -1,1 +1,9 @@
-= "show"
+= link_to "Dropsに戻る", drops_path 
+h1
+    = "Drops##{@drop.id}"
+dl
+    - @drop.attributes.each do |key, value|
+        dt
+            = key
+        dd
+            = value

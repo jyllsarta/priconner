@@ -1,1 +1,9 @@
-= "show"
+= link_to "Equipsに戻る", equips_path 
+h1
+    = "Equips##{@equip.id}"
+dl
+    - @equip.attributes.each do |key, value|
+        dt
+            = key
+        dd
+            = value
