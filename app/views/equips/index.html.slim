@@ -7,6 +7,8 @@ table
                 = key
     - @equips.each do |equip|
         tr
-            - equip.attributes.each do |_, value|
+            td
+                = link_to "#{equip.id}", equip_path(equip.id) 
+            - equip.attributes.except("id").each do |_, value|
                 td
                     = value

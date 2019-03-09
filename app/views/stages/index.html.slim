@@ -7,6 +7,8 @@ table
                 = key
     - @stages.each do |stage|
         tr
-            - stage.attributes.each do |_, value|
+            td
+                = link_to "#{stage.id}", stage_path(stage.id) 
+            - stage.attributes.except("id").each do |_, value|
                 td
                     = value

@@ -7,6 +7,8 @@ table
                 = key
     - @forges.each do |forge|
         tr
-            - forge.attributes.each do |_, value|
+            td
+                = link_to "#{forge.id}", forge_path(forge.id) 
+            - forge.attributes.except("id").each do |_, value|
                 td
                     = value

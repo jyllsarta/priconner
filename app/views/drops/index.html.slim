@@ -7,6 +7,8 @@ table
                 = key
     - @drops.each do |drop|
         tr
-            - drop.attributes.each do |_, value|
+            td
+                = link_to "#{drop.id}", drop_path(drop.id) 
+            - drop.attributes.except("id").each do |_, value|
                 td
                     = value

@@ -7,6 +7,8 @@ table
                 = key
     - @items.each do |item|
         tr
-            - item.attributes.each do |_, value|
+            td
+                = link_to "#{item.id}", item_path(item.id) 
+            - item.attributes.except("id").each do |_, value|
                 td
                     = value
