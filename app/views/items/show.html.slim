@@ -3,7 +3,7 @@ h1
     = "Items##{@item.id}"
 dl
     - @item.attributes.each do |key, value|
-        dt
+        dt.btn
             = key
         dd
             = value
