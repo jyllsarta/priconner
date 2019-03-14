@@ -8,3 +8,11 @@ dl
             = key
         dd
             = value
+
+h2
+    | 素材
+ul
+    - @item.forges.each do |forge|
+        a href="/items/#{forge.material_item.id}"
+            li
+                = "#{forge.material_item.name} x #{forge.count}"
