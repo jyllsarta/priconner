@@ -34,4 +34,19 @@ class Item < ApplicationRecord
     has_many :forges, foreign_key: :forge_item_id
     # 素材アイテムが直接引ける
     has_many :materials, through: :forges, source: :material_item
+
+    has_many :drops
+    has_many :stages, through: :drops, as: :drop_stages
+
+    # SQLが大量に発行される要因なので、キャッシュするか直接DBに埋め込んでしまいたい
+    def primary_material
+        forges.where("count > 1").first&.material_item
+    end
+
+    # これが集められるところ
+    # primary_material がドロップするステージか || 自分自身がドロップするステージ
+    def producing_stages
+        return stages if stages.exists?
+        primary_material&.stages || []
+    end
 end

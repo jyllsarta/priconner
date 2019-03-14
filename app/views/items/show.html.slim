@@ -16,3 +16,11 @@ ul
         a href="/items/#{forge.material_item.id}"
             li
                 = "#{forge.material_item.name} x #{forge.count}"
+
+h2
+    | 産地
+ul
+    - @item.producing_stages.each do |stage|
+        a href="/stages/#{stage.id}"
+            li
+                = "#{stage.area} - #{stage.location}#{:H.to_s if stage.is_hard == 1}"
