@@ -50,17 +50,12 @@ class Item < ApplicationRecord
         primary_material&.stages || []
     end
 
-    # 通常管理されるパラメータ(HP, 物攻, 物防, 魔攻, 魔防)
-    def primary_parameters
-        self.slice(:hp, :atk, :def, :matk, :mdef)
-    end
-
-    # 通常上昇しないパラメータ(TP関連他)
-    def extra_parameters
-        self.slice(:tpgain, :healgain, :tpreduce, :autohp, :autotp, :cri, :mcri, :hit, :eva, :drain)
-    end
-
     def parameters
-        self.primary_parameters.merge(self.extra_parameters)
+        self.slice(:hp, :atk, :def, :matk, :mdef, :tpgain, :healgain, :tpreduce, :autohp, :autotp, :cri, :mcri, :hit, :eva, :drain)
+    end
+
+    # 効果値のあるものを抽出
+    def affective_parameters
+        parameters.select{|_, value| value.positive?}
     end
 end

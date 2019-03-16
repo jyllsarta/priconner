@@ -3,8 +3,7 @@
 h1
     = "Items##{@item.id}"
 dl
-    - @item.parameters.each do |key, value|
-        - if value.positive?
+    - @item.affective_parameters.each do |key, value|
             dt
                 = key
             dd
