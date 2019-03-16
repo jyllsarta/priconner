@@ -3,11 +3,12 @@
 h1
     = "Items##{@item.id}"
 dl
-    - @item.attributes.each do |key, value|
-        dt.btn
-            = key
-        dd
-            = value
+    - @item.parameters.each do |key, value|
+        - if value.positive?
+            dt
+                = key
+            dd
+                = value
 
 h2
     | 素材
