@@ -2,6 +2,9 @@
 = link_to "Itemsに戻る", items_path 
 h1
     = "Items##{@item.id}"
+
+= render partial: "partials/item", locals: {item: @item}
+
 dl
     - @item.affective_parameters.each do |key, value|
             dt
