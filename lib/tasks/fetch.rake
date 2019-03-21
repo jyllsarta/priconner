@@ -179,13 +179,35 @@ namespace :fetch do
     write(result.to_h.to_json, "items.hash")
   end
 
-  private
+  # gw_image_idを持つキャラと装備の画像を一括取得
+  task :images => :environment do
+      Item.all.each do |item|
+        puts "#{item.id}/#{Item.count} #{item.name}"
+        save_image(Rails.root.join("public", "images", "items", "#{item.gw_image_id}.png"), "https://gamewith.akamaized.net/article_tools/pricone-re/gacha/#{item.gw_image_id}_s.png")
+      end
+      Character.all.each do |character|
+        puts "#{character.id}/#{Character.count} #{character.name}"
+        save_image(Rails.root.join("public", "images", "characters", "#{character.gw_image_id}.png"), "https://gamewith.akamaized.net/article_tools/pricone-re/gacha/#{character.gw_image_id}_i.png")
+      end
+    end
+    
+    private
+    
+    def save_image(filepath, url)
+      return if File.exists?(filepath)
+      File.open(filepath, 'wb') do |file|
+        open(url, 'rb') do |fetched|
+          file.write(fetched.read)
+        end
+        sleep(1)
+    end
+  end
+
   def write(content, filename)
     File.open("tmp/#{filename}", "w") do |f|
       f.write(content)
     end
   end
-
 
   def fetch(url)
     html = open(url) {|f| f.read}

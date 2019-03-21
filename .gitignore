@@ -29,3 +29,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# キャラとアイテムの画像はリポジトリに上げられない
+/public/images/characters
+/public/images/items
