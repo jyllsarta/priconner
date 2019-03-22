@@ -33,3 +33,6 @@
 # キャラとアイテムの画像はリポジトリに上げられない
 /public/images/characters
 /public/images/items
+
+# シード情報も直接載せない
+/masterdata
