@@ -3,11 +3,15 @@ h1
     | Items
 table
     tr
+        th
+            | 画像
         - @item.attributes.each do |key, _|
             th
                 = key
     - @items.each do |item|
         tr
+            td
+                img.item_image_mini src="#{item.image_path}"
             td
                 = link_to "#{item.id}", item_path(item.id) 
             - item.attributes.except("id").each do |_, value|

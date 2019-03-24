@@ -58,4 +58,8 @@ class Item < ApplicationRecord
     def affective_parameters
         parameters.select{|_, value| value.positive?}
     end
+
+    def image_path
+        "/images/items/#{self.gw_image_id}.png"
+    end
 end
