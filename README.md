@@ -2,17 +2,41 @@
 
 プリコネ攻略するやつ
 
-## Run local
+* アイテム素材を柔軟に検索可能
+
+## Run
+
+### preference
 
 ```shell
 bundle install
 rails db:create
 bundle exec ridgepole -c config/database.yml -E development --apply -f db/Schemafile
+```
+
+### seed
+
+このへんちょっとまだ
+
+```shell
+git clone https://github.com/jyllsarta/priconeer-masterdata.git masterdata
 rails db:seed
+```
+
+### put binary
+
+```shell
+rm -r public
+git clone https://github.com/jyllsarta/priconeer-binary.git public
+```
+
+### start server
+
+```shell
 rails s
 ```
 
-## scrape and seed
+## scrape
 
 * `rails 'fetch:item_indexes'`
 * `rails 'fetch:character_indexes'`
