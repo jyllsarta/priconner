@@ -9,11 +9,12 @@ table
             th
                 = key
     - @items.each do |item|
-        tr
-            td
-                img.item_image_mini src="#{item.image_path}"
-            td
-                = link_to "#{item.id}", item_path(item.id) 
-            - item.attributes.except("id").each do |_, value|
+        - unless item.is_material
+            tr
                 td
-                    = value
+                    img.item_image_mini src="#{item.image_path}"
+                td
+                    = link_to "#{item.id}", item_path(item.id) 
+                - item.attributes.except("id").each do |_, value|
+                    td
+                        = value
