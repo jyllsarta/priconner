@@ -180,7 +180,11 @@ namespace :import do
         priority: drop[:priority]
       )
     end
-    
+  end
+
+  # 画像のIDマイグレーション
+  task :drop_indexes => :environment do
+    # TODO old_item_id -> new_item_idで一斉リネーム
   end
 
   private
