@@ -68,3 +68,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'ridgepole'
 gem 'annotate'
 gem 'google_drive'
+gem 'activerecord-import'

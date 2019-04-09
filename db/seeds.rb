@@ -15,13 +15,14 @@ EXPORT_TABLES.map(&:to_s).each do |table_name|
   clazz = table_name.singularize.camelize.constantize
   clazz.delete_all
   accepted_attributes = clazz.new.attributes.keys.map(&:to_sym)
+  records = []
   CSV.open("masterdata/seeds/#{table_name}.csv", headers: true, header_converters: :symbol) do |csv|
     csv.each do |line|
       attributes = line.to_h.select{|k, v| k.in? accepted_attributes}
-      record = clazz.new(attributes)
-      record.save!(validate: false)
+      records.push(clazz.new(attributes))
     end
   end
+  clazz.import(records)
   puts "created #{clazz} (#{clazz.count})"
 end
 
