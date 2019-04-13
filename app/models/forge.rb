@@ -11,4 +11,9 @@
 class Forge < ApplicationRecord
   belongs_to :forge_item, class_name: "Item"
   belongs_to :material_item , class_name: "Item"
+
+  def accumulate
+    return self if material_item.forges.empty?
+    material_item.forges.map(&:accumulate)
+  end
 end

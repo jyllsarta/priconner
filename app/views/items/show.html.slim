@@ -21,6 +21,13 @@ ul
         = "#{forge.material_item.name} x #{forge.count}"
 
 h2
+  | 真の素材
+ul
+  - @item.accumulate_all_materials.each do |forge|
+    a href="/items/#{forge.material_item.id}"
+      li
+        = "#{forge.material_item.name} x #{forge.count}"
+h2
   | 産地
 ul
   - @item.producing_stages.each do |stage|

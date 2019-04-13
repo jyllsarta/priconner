@@ -59,6 +59,11 @@ class Item < ApplicationRecord
     forges.where("count > 1").first&.material_item
   end
 
+  # トータルで結局何が必要なのよ
+  def accumulate_all_materials
+    self.forges.map(&:accumulate).flatten
+  end
+
   # これが集められるところ
   # primary_material がドロップするステージか || 自分自身がドロップするステージ
   def producing_stages
