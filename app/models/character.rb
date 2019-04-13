@@ -11,4 +11,14 @@
 #
 
 class Character < ApplicationRecord
+  has_many :equips
+
+  def accumulate_equips_by_key(key)
+    hash = {}
+    self.equips.each do |item|
+      hash[item[key]] ||= []
+      hash[item[key]].push(item)
+    end
+    hash
+  end
 end

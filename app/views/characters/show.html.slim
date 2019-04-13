@@ -8,3 +8,16 @@ dl
       = key
     dd
       = value
+
+table
+  tr
+    - ["rank", 1,2,3,4,5,6].each do |header|
+      th
+        = header
+  - @character.accumulate_equips_by_key(:rank).each do |rank, equips|
+    tr
+      td
+        = rank
+      - equips.each do |equip|
+        td
+          = equip.item.name
