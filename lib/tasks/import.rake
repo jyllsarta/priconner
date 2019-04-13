@@ -183,8 +183,12 @@ namespace :import do
   end
 
   # 画像のIDマイグレーション
-  task :drop_indexes => :environment do
-    # TODO old_item_id -> new_item_idで一斉リネーム
+  task :migrate_filename => :environment do
+    Item.all.each do |item|
+      path = "#{Rails.root}/public/images/items/%d.png"
+      File.rename(path % item.gw_image_id, path % item.id) if File.exist?(path % item.gw_image_id)
+      puts "done with #{item.id}"
+    end
   end
 
   private
