@@ -6,5 +6,6 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find_by(id: params[:id])
+    redirect_to item_path(@item.to_forged) if @item.is_material
   end
 end

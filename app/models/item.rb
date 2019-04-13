@@ -59,6 +59,12 @@ class Item < ApplicationRecord
     forges.where("count > 1").first&.material_item
   end
 
+  # 素材アイテム -> 主要アイテム
+  def to_forged
+    return nil unless self.is_material
+    Forge.where(material_item: self).first.forge_item
+  end
+
   # トータルで結局何が必要なのよ
   def accumulate_all_materials
     self.forges.map(&:accumulate).flatten
