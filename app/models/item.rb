@@ -38,6 +38,22 @@ class Item < ApplicationRecord
   has_many :drops
   has_many :stages, through: :drops, as: :drop_stages
 
+  enum category_text: {
+    "剣": 1,
+    "刀": 2,
+    "短剣": 3,
+    "拳": 4,
+    "弓": 5,
+    "槍": 6,
+    "斧": 7,
+    "杖": 8,
+    "鎧": 9,
+    "盾": 10,
+    "靴": 11,
+    "頭": 12,
+    "アクセサリ": 13
+  }
+
   # SQLが大量に発行される要因なので、キャッシュするか直接DBに埋め込んでしまいたい
   def primary_material
     forges.where("count > 1").first&.material_item
@@ -60,6 +76,16 @@ class Item < ApplicationRecord
   end
 
   def image_path
-    "/images/items/#{self.gw_image_id}.png"
+    "/images/items/#{self.id}.png"
   end
+
+  def self.accumulate_by_key(key)
+    hash = {}
+    self.where(is_material: false).each do |item|
+      hash[item[key]] ||= []
+      hash[item[key]].push(item)
+    end
+    hash
+  end
+
 end

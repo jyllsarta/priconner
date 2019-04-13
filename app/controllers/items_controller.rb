@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   def index
     @item = Item.new
-    @items = Item.all
+    @items_sorted_by_rank = Item.accumulate_by_key(:rank)
   end
 
   def show
