@@ -1,10 +1,10 @@
 - provide(:title , @stage.id.to_s)
 = link_to "Stagesに戻る", stages_path 
 h1
-    = "Stages##{@stage.id}"
+  = "Stages##{@stage.id}"
 dl
-    - @stage.attributes.each do |key, value|
-        dt
-            = key
-        dd
-            = value
+  - @stage.attributes.each do |key, value|
+    dt
+      = key
+    dd
+      = value

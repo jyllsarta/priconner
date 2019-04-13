@@ -1,20 +1,20 @@
 - provide(:title , "Items")
 h1
-    | Items
+  | Items
 table
-    tr
-        th
-            | 画像
-        - @item.attributes.each do |key, _|
-            th
-                = key
-    - @items.each do |item|
-        - unless item.is_material
-            tr
-                td
-                    img.item_image_mini src="#{item.image_path}"
-                td
-                    = link_to "#{item.id}", item_path(item.id) 
-                - item.attributes.except("id").each do |_, value|
-                    td
-                        = value
+  tr
+    th
+      | 画像
+  - @item.attributes.each do |key, _|
+    th
+      = key
+  - @items.each do |item|
+    - unless item.is_material
+      tr
+        td
+          img.item_image_mini src="#{item.image_path}"
+        td
+          = link_to "#{item.id}", item_path(item.id)
+        - item.attributes.except("id").each do |_, value|
+          td
+            = value

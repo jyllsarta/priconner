@@ -1,29 +1,29 @@
 - provide(:title , @item.name)
 = link_to "Itemsに戻る", items_path 
 h1
-    = "Items##{@item.id}"
+  = "Items##{@item.id}"
 
 = render partial: "partials/item", locals: {item: @item}
 
 dl
-    - @item.affective_parameters.each do |key, value|
-            dt
-                = key
-            dd
-                = value
+  - @item.affective_parameters.each do |key, value|
+    dt
+      = key
+    dd
+      = value
 
 h2
-    | 素材
+  | 素材
 ul
-    - @item.forges.each do |forge|
-        a href="/items/#{forge.material_item.id}"
-            li
-                = "#{forge.material_item.name} x #{forge.count}"
+  - @item.forges.each do |forge|
+    a href="/items/#{forge.material_item.id}"
+      li
+        = "#{forge.material_item.name} x #{forge.count}"
 
 h2
-    | 産地
+  | 産地
 ul
-    - @item.producing_stages.each do |stage|
-        a href="/stages/#{stage.id}"
-            li
-                = "#{stage.area} - #{stage.location}#{:H.to_s if stage.is_hard == 1}"
+  - @item.producing_stages.each do |stage|
+    a href="/stages/#{stage.id}"
+      li
+        = "#{stage.area} - #{stage.location}#{:H.to_s if stage.is_hard == 1}"

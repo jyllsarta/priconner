@@ -1,15 +1,15 @@
 - provide(:title , "Equips")
 h1
-    | Equips
+  | Equips
 table
+  tr
+    - @equip.attributes.each do |key, _|
+      th
+        = key
+  - @equips.each do |equip|
     tr
-        - @equip.attributes.each do |key, _|
-            th
-                = key
-    - @equips.each do |equip|
-        tr
-            td
-                = link_to "#{equip.id}", equip_path(equip.id) 
-            - equip.attributes.except("id").each do |_, value|
-                td
-                    = value
+      td
+        = link_to "#{equip.id}", equip_path(equip.id)
+      - equip.attributes.except("id").each do |_, value|
+        td
+          = value

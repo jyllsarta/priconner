@@ -1,15 +1,15 @@
 - provide(:title , "Forges")
 h1
-    | Forges
+  | Forges
 table
+  tr
+    - @forge.attributes.each do |key, _|
+      th
+        = key
+  - @forges.each do |forge|
     tr
-        - @forge.attributes.each do |key, _|
-            th
-                = key
-    - @forges.each do |forge|
-        tr
-            td
-                = link_to "#{forge.id}", forge_path(forge.id) 
-            - forge.attributes.except("id").each do |_, value|
-                td
-                    = value
+      td
+        = link_to "#{forge.id}", forge_path(forge.id)
+      - forge.attributes.except("id").each do |_, value|
+        td
+          = value

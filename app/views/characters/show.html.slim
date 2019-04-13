@@ -1,10 +1,10 @@
 - provide(:title , @character.name)
 = link_to "Charactersに戻る", characters_path 
 h1
-    = "Characters##{@character.id}"
+  = "Characters##{@character.id}"
 dl
-    - @character.attributes.each do |key, value|
-        dt
-            = key
-        dd
-            = value
+  - @character.attributes.each do |key, value|
+    dt
+      = key
+    dd
+      = value
