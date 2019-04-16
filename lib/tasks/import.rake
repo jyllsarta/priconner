@@ -194,8 +194,15 @@ namespace :import do
   # 画像のIDマイグレーション
   task :migrate_character_filename => :environment do
     Character.all.each do |character|
+      tmp_path = "#{Rails.root}/public/images/characters/_%d.png"
       path = "#{Rails.root}/public/images/characters/%d.png"
-      File.rename(path % character.gw_image_id, path % character.id) if File.exist?(path % character.gw_image_id)
+      File.rename(path % character.gw_image_id, tmp_path % character.id) if File.exist?(path % character.gw_image_id)
+      puts "done with #{character.id}"
+    end
+    Character.all.each do |character|
+      tmp_path = "#{Rails.root}/public/images/characters/_%d.png"
+      path = "#{Rails.root}/public/images/characters/%d.png"
+      File.rename(tmp_path % character.id, path % character.id) if File.exist?(tmp_path % character.id)
       puts "done with #{character.id}"
     end
   end
