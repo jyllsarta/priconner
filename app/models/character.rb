@@ -21,4 +21,18 @@ class Character < ApplicationRecord
     end
     hash
   end
+
+  def total_equips
+    hash = {}
+    # 愚直に定義どおり書くとこうなんだけど、こうやって関連を引いてしまうとN+1か過剰なpreload不可避なので
+    # グローバルにForgeからwhereで引いて足してくほうがいいんだと思う
+    self.equips.each do |equip|
+      item = equip.item
+      item.accumulate_all_materials.each do |forge|
+        hash[forge.material_item] ||= 0
+        hash[forge.material_item] += forge.count        
+      end
+    end
+    hash
+  end
 end
