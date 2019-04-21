@@ -35,4 +35,8 @@ class Character < ApplicationRecord
     end
     hash
   end
+
+  def image_path
+    "/images/characters/#{self.id}.png"
+  end
 end

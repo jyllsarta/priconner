@@ -1,15 +1,5 @@
 - provide(:title , "Characters")
 h1
   | Characters
-table
-  tr
-    - @character.attributes.each do |key, _|
-      th
-        = key
-  - @characters.each do |character|
-    tr
-      td
-        = link_to "#{character.id}", character_path(character.id)
-      - character.attributes.except("id").each do |_, value|
-        td
-          = value
+- @characters.each do |character|
+  = render partial: "partials/character", locals: {character: character}
