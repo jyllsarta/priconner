@@ -131,7 +131,6 @@ namespace :import do
     puts "全キャラの要求素材情報を取得します。時間がかかります。 続行？ (Y/n)"
     raise "ok bye~~" unless STDIN.gets.chomp == "Y"
 
-    # TODO キャラ詳細に飛んで要求素材を埋める
     Character.all.each do |character|
       pp character
       Rake::Task["fetch:characters"].invoke(character.gw_page_id)
