@@ -19,13 +19,15 @@ table
       td
         = rank
       - equips.each do |equip|
-        td
-          = render partial: "partials/item", locals: {item: equip.item}
+        - if equip.item.present?
+          td
+            = render partial: "partials/item", locals: {item: equip.item}
 
 h2
   | 最強にするのに必要な素材(金装備以上)
 ul
   - @total_equips.each do |item, count|
-    a href="/items/#{item.id}"
-      li
-        = "#{item.name} x #{count}"
+    - if item.present?
+      a href="/items/#{item.id}"
+        li
+          = "#{item.name} x #{count}"
