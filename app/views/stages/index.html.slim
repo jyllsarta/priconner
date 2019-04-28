@@ -2,14 +2,12 @@
 h1
   | Stages
 table
-  tr
-    - @stage.attributes.each do |key, _|
-      th
-        = key
   - @stages.each do |stage|
     tr
       td
         = link_to "#{stage.id}", stage_path(stage.id)
-      - stage.attributes.except("id").each do |_, value|
+      td
+        = stage.name
+      - stage.drops.order(:priority).each do |drop|
         td
-          = value
+          = render partial: "partials/item", locals: {item: drop.item} if drop.item.present?
