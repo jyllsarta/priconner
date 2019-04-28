@@ -10,4 +10,4 @@ table
         = stage.name
       - stage.drops.order(:priority).each do |drop|
         td
-          = render partial: "partials/item", locals: {item: drop.item} if drop.item.present?
+          = render partial: "partials/item", locals: {item: drop.item}
