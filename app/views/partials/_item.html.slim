@@ -1,2 +1,10 @@
+
 a href="/items/#{item.id}"
-  img.item_image src="#{item.image_path}"
+  .item_partial
+    .name.text
+      | #{item.name[0..5]}
+    .id.text
+      | #{item.id}
+    .is_material.text
+      = item.is_material? ? "材" : "完"
+    img.image src="#{item.image_path}"
