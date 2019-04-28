@@ -14,29 +14,38 @@
  *= require_self
  */
 
-$gray: #EFEFEF;
+$gray: #efefef;
 $black: #333333;
-$alert: #EF92AE;
+$main: #80569c;
+$accent: #58c175;
 
 body{
-    width: 1100px;
-    margin: 0px auto;
-    border-left: 1px solid #123123;
-    border-right: 1px solid #123123;
+  width: 1100px;
+  margin: 0px auto;
+  border-left: 1px solid #123123;
+  border-right: 1px solid #123123;
+  color: $black;
+  a{
+    color: $main;
+    text-decoration: none;
+  }
+  a:visited{
+    color: $main;
+  }
 }
 
 header{
+  width: 100%;
+  .header_image{
     width: 100%;
-    .header_image{
-        width: 100%;
+  }
+  .header_menu{
+    display: flex;
+    flex-direction: row;
+    .item{
+      padding: 10px;
     }
-    .header_menu{
-        display: flex;
-        flex-direction: row;
-        .item{
-            padding: 10px;
-        }
-    }
+  }
 }
 
 .item_partial{
@@ -74,12 +83,11 @@ header{
     width: 64px;
     height: 64px;
     z-index: 10;
-    background-color: $alert;
+    background-color: $accent;
   }
 }
 
-
 .item_image_mini{
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
