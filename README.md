@@ -2,7 +2,16 @@
 
 プリコネ攻略するやつ
 
-* アイテム素材を柔軟に検索可能
+* 指定のスプレッドシートに書いたマスタデータを元にDBを構築
+* マスタデータからページを生成しているので柔軟な機能拡張・データ追加が可能
+
+## データは外出し
+
+* マスタ
+  * https://github.com/jyllsarta/priconeer-masterdata
+  
+* 静的ファイル
+  * https://github.com/jyllsarta/priconeer-binary
 
 ## Run
 
@@ -16,8 +25,6 @@ bundle exec ridgepole -c config/database.yml -E development --apply -f db/Schema
 
 ### seed
 
-このへんちょっとまだ
-
 ```shell
 git clone https://github.com/jyllsarta/priconeer-masterdata.git masterdata
 rails db:seed
@@ -26,8 +33,9 @@ rails db:seed
 ### put binary
 
 ```shell
-rm -r public
-git clone https://github.com/jyllsarta/priconeer-binary.git public
+rm -r public/images
+cd images
+git clone https://github.com/jyllsarta/priconeer-binary.git images
 ```
 
 ### start server
@@ -35,25 +43,6 @@ git clone https://github.com/jyllsarta/priconeer-binary.git public
 ```shell
 rails s
 ```
-
-## scrape
-
-* `rails 'fetch:item_indexes'`
-* `rails 'fetch:character_indexes'`
-* `rails 'fetch:drop_indexes'`
-
-* `rails 'import:item_indexes'`
-  * 警告はすべて Y で続行
-  * Item, Forgeテーブルが埋まる
-* `rails 'import:character_indexes'`
-  * 警告はすべて Y で続行
-  * Equip, Characterテーブルが埋まる
-* `rails 'import:drop_indexes'`
-  * 警告はすべて Y で続行
-  * Stage, Dropテーブルが埋まる
-
-キャラは要求素材(=Equip)を埋めるため、Itemに依存している。先にItemのimportを行うこと
-同様にDropはItem.idに依存するため、先にItemのimportが必要
 
 ## Schema update
 
