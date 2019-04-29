@@ -40,8 +40,17 @@ git clone https://github.com/jyllsarta/priconeer-binary.git images
 
 ### start server
 
+* local
+
 ```shell
 rails s
+```
+
+* if production
+
+```shell
+export SECRET_KEY_BASE=なんとかかんとか
+sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production bin/rails s
 ```
 
 ## Schema update
