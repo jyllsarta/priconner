@@ -34,3 +34,9 @@ ul
     a href="/stages/#{stage.id}"
       li
         = "#{stage.area} - #{stage.location}#{:H.to_s if stage.is_hard == 1}"
+
+h2
+  | 以下の装備を作るとき必要になるよ
+ul
+  - @item.required_from.each do |item|
+    = render partial: "partials/item", locals: {item: item}

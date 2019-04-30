@@ -70,6 +70,11 @@ class Item < ApplicationRecord
     self.forges.map(&:accumulate).flatten
   end
 
+  # これを必要とするアイテム一覧
+  def required_from
+    self.required_from_recursive.flatten[(1..-1)]
+  end
+
   # これが集められるところ
   # primary_material がドロップするステージか || 自分自身がドロップするステージ
   def producing_stages
@@ -99,4 +104,14 @@ class Item < ApplicationRecord
     hash
   end
 
+  # これを素材として使う装備を(1階層のみ)掘る
+  def dig_required
+    Forge.where(material_item: self).map(&:forge_item)
+  end
+
+  # これを素材として使う装備一覧をツリーで返す
+  def required_from_recursive
+    return [self, []] if self.dig_required.empty?
+    [self, self.dig_required.map(&:required_from_recursive)]
+  end
 end

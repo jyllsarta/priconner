@@ -16,4 +16,9 @@ class Forge < ApplicationRecord
     return self if material_item.forges.empty?
     material_item.forges.map(&:accumulate)
   end
+
+  def reverse_accumulate
+    return self if forge_item.forges.empty?
+    forge_item.forges.map(&:reverse_accumulate)
+  end
 end
