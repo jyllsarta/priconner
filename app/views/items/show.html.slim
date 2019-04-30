@@ -36,7 +36,13 @@ ul
         = "#{stage.area} - #{stage.location}#{:H.to_s if stage.is_hard == 1}"
 
 h2
-  | 以下の装備を作るとき必要になるよ
+  | 以下の装備の素材だよ
 ul
   - @item.required_from.each do |item|
     = render partial: "partials/item", locals: {item: item}
+
+h2
+  | これが必要になるキャラ
+ul
+  - @item.equip_characters.each do |character|
+    = render partial: "partials/character", locals: {character: character}

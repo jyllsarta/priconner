@@ -38,6 +38,8 @@ class Item < ApplicationRecord
   has_many :drops
   has_many :stages, through: :drops, as: :drop_stages
 
+  has_many :equips
+
   enum category_text: {
     "剣": 1,
     "刀": 2,
@@ -113,5 +115,15 @@ class Item < ApplicationRecord
   def required_from_recursive
     return [self, []] if self.dig_required.empty?
     [self, self.dig_required.map(&:required_from_recursive)]
+  end
+
+  # これを装備するキャラたち
+  def equip_characters
+    characters = []
+    characters.push(self.equips.map(&:character))
+    self.required_from.each do |item|
+      characters.push(item.equips.map(&:character))
+    end
+    characters.flatten.uniq
   end
 end
