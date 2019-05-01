@@ -62,3 +62,36 @@ sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production bin/rails s
 ## エンドポイントを生やしたら
 
 * `bundle exec annotate -r`
+
+## デプロイ手順
+
+### セッションに入り、サーバ停止
+
+```shell
+sudo su - jyll
+tmux a -t "production-home"
+^C
+```
+
+### マスタ更新・seed
+
+```shell
+cd ~/priconner/masterdata
+git pull
+cd ~/priconner
+bundle exec ridgepole -c config/database.yml -E production --apply -f db/Schemafile
+RAILS_ENV=production bin/rails db:seed
+```
+
+### アセットの更新
+
+```shell
+bundle exec rake assets:precompile
+```
+
+### run server
+
+```shell
+source ~/.bash_profile
+sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production bin/rails s
+```
