@@ -1,5 +1,21 @@
 - provide(:title , "Characters")
 h1
   | Characters
-- @characters.each do |character|
+
+div
+  | キャラの並び順になっています。
+
+h2
+  | 前衛
+- @front_characters.each do |character|
+  = render partial: "partials/character", locals: {character: character}
+
+h2
+  | 中衛
+- @middle_characters.each do |character|
+  = render partial: "partials/character", locals: {character: character}
+
+h2
+  | 後衛
+- @back_characters.each do |character|
   = render partial: "partials/character", locals: {character: character}

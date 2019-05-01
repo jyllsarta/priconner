@@ -12,6 +12,7 @@
 
 class Character < ApplicationRecord
   has_many :equips
+  enum place: { front: 1, middle: 2, back: 3 }
 
   def accumulate_equips_by_key(key)
     hash = {}

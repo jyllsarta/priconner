@@ -1,7 +1,9 @@
 class CharactersController < ApplicationController
   def index
     @character = Character.new
-    @characters = Character.all
+    @front_characters = Character.where(place: Character.places[:front]).order(position: :asc)
+    @middle_characters = Character.where(place: Character.places[:middle]).order(position: :asc)
+    @back_characters = Character.where(place: Character.places[:back]).order(position: :asc)
   end
 
   def show
