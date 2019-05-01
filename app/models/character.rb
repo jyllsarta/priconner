@@ -5,9 +5,10 @@
 #  id             :integer          not null, primary key
 #  name           :string           default("0"), not null
 #  initial_rarity :integer          default(0), not null
-#  position       :integer          default(0), not null
+#  position       :decimal(, )      default(0.0), not null
 #  gw_page_id     :integer          default(0), not null
 #  gw_image_id    :integer          default(0), not null
+#  place          :integer          default(NULL), not null
 #
 
 class Character < ApplicationRecord
