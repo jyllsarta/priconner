@@ -5,5 +5,6 @@ h1
   - unless items.empty?
     h2
       | rank #{items.first.rank}
-    - items.each do |item|
-      = render partial: "partials/item", locals: {item: item}
+    .item_box
+      - items.each do |item|
+        = render partial: "partials/item", locals: {item: item}

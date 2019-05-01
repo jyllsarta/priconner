@@ -24,8 +24,6 @@ table
 
 h2
   | 最強にするのに必要な素材(金装備以上)
-ul
-  - @total_equips.each do |item, count|
-    a href="/items/#{item.id}"
-      li
-        = "#{item.name} x #{count}"
+.item_box
+  - @total_equips.each do |item, amount|
+    = render partial: "partials/item_with_amount", locals: {item: item, amount: amount}

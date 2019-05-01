@@ -48,11 +48,30 @@ header{
   }
 }
 
+.item_box{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.item_with_amount{
+  position: relative;
+  margin: 5px;
+  width: 128px;
+  height: 64px;
+  display: flex;
+  flex-direction: row;
+  .amount{
+    width: 64px;
+  }
+}
+
 .item_partial{
   position: relative;
   display: inline-block;
   width: 64px;
   height: 64px;
+  margin: 2px;
   .text{
     font-size: 8px;
     background-color: $gray;

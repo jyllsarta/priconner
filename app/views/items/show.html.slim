@@ -14,19 +14,17 @@ dl
 
 h2
   | 素材
-ul
+.item_box
   - @item.forges.each do |forge|
-    a href="/items/#{forge.material_item.id}"
-      li
-        = "#{forge.material_item.name} x #{forge.count}"
+    = render partial: "partials/item_with_amount", locals: {item: forge.material_item, amount: forge.count}
 
 h2
   | 真の素材
-ul
+.item_box
   - @item.accumulate_all_materials.each do |forge|
-    a href="/items/#{forge.material_item.id}"
-      li
-        = "#{forge.material_item.name} x #{forge.count}"
+    = render partial: "partials/item_with_amount", locals: {item: forge.material_item, amount: forge.count}
+
+
 h2
   | 産地
 ul
@@ -37,9 +35,10 @@ ul
 
 h2
   | 以下の装備の素材だよ
-ul
-  - @item.required_from.each do |item|
-    = render partial: "partials/item", locals: {item: item}
+- @item.required_from.each do |item|
+  = render partial: "partials/item", locals: {item: item}
+- if @item.required_from.empty?
+  | このアイテムはどのアイテムの素材でもないよ
 
 h2
   | これが必要になるキャラ

@@ -1,0 +1,5 @@
+.item_with_amount
+  .item
+    = render partial: "partials/item", locals: {item: item}
+  .amount
+    | x #{amount}
