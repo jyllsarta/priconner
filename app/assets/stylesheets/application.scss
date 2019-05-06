@@ -14,24 +14,42 @@
  *= require_self
  */
 
-$gray: #efefef;
+$gray1: #efefef;
+$gray2: #a0a0a0;
 $black: #333333;
 $main: #80569c;
 $accent: #58c175;
 
 body{
-  width: 800px;
+  max-width: 800px;
   margin: 0px auto;
-  border-left: 1px solid #123123;
-  border-right: 1px solid #123123;
+  border-left: 1px solid $gray2;
+  border-right: 1px solid $gray2;
+  padding: 0% 1% 10% 1%;
   color: $black;
   a{
     color: $main;
-    text-decoration: none;
+    text-decoration: underline;
   }
   a:visited{
     color: $main;
   }
+}
+
+h1{
+  font-size: 2.5em;
+  margin: 1% 0% 1% 0%;
+  border-bottom: 1px solid $main;
+}
+
+h2{
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  border-left: 10px solid $gray2;
+  border-bottom: 1px solid $gray2;
+  padding-left: 10px;
+  width: 80%;
 }
 
 header{
@@ -42,6 +60,7 @@ header{
   .header_menu{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     .item{
       padding: 10px;
     }
@@ -80,9 +99,11 @@ header{
   margin: 2px;
   .text{
     font-size: 8px;
-    background-color: $gray;
+    background-color: $gray1;
     color: $black;
     z-index: 100;
+    border-radius: 3px;
+    padding: 0px 1px 0px 1px;
   }
   .name{
     position: absolute;
