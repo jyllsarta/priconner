@@ -30,9 +30,12 @@ body{
   a{
     color: $main;
     text-decoration: underline;
-  }
-  a:visited{
-    color: $main;
+    &:hover{
+      filter: brightness(120%);
+    }
+    &:visited{
+      color: $main;
+    }
   }
 }
 
