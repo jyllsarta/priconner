@@ -91,6 +91,9 @@ header{
   flex-direction: row;
   .amount{
     width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: flex-end;
   }
 }
 
@@ -139,4 +142,17 @@ header{
 .item_image_mini{
   width: 32px;
   height: 32px;
+}
+
+.item_parameters{
+  .item_parameter{
+    .name{
+      display: inline-block;
+      width: 200px;
+    }
+    .value{
+      display: inline-block;
+      width: 100px;
+    }
+  }
 }

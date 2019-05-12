@@ -57,6 +57,24 @@ class Item < ApplicationRecord
     "アクセサリ": 13
   }
 
+  enum parameter: {
+      hp: "HP",
+      atk: "物理攻撃力",
+      def: "物理防御力",
+      matk: "魔法攻撃力",
+      mdef: "魔法防御力",
+      tpgain: "TP上昇",
+      healgain: "回復量上昇",
+      tpreduce: "TP消費軽減",
+      autohp: "HP自動回復",
+      autotp: "TP自動回復",
+      cri: "物理クリティカル",
+      mcri: "魔法クリティカル",
+      hit: "命中",
+      eva: "回避",
+      drain: "HP吸収",
+  }
+
   # SQLが大量に発行される要因なので、キャッシュするか直接DBに埋め込んでしまいたい
   def primary_material
     forges.where("count > 1").first&.material_item

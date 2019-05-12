@@ -1,16 +1,16 @@
 - provide(:title , @item.name)
 = link_to "Itemsに戻る", items_path 
 h1
-  = "Items##{@item.id}"
+  = @item.name
 
 = render partial: "partials/item", locals: {item: @item}
 
-dl
+h2
+  | パラメータ
+
+ul.item_parameters
   - @item.affective_parameters.each do |key, value|
-    dt
-      = key
-    dd
-      = value
+    = render partial: "partials/item_parameter", locals: {name: Item.parameters[key], value: value}
 
 h2
   | 素材

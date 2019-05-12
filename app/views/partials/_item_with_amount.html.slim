@@ -2,4 +2,5 @@
   .item
     = render partial: "partials/item", locals: {item: item}
   .amount
-    | x #{amount}
+    .text
+      | x #{amount}
