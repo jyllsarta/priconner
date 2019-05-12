@@ -1,7 +1,7 @@
 class StagesController < ApplicationController
   def index
     @stage = Stage.new
-    @stages = Stage.all
+    @stages = Stage.preload(drops: [:item]).all
   end
 
   def show
