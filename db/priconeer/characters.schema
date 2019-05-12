@@ -3,8 +3,4 @@ create_table "characters", force: :cascade do |t|
     t.integer :initial_rarity, null: false, default: 0
     t.integer :place,          null: false, default: 0
     t.decimal :position,       null: false, default: 0
-
-    # for gamewith migration
-    t.integer :gw_page_id,     null: false, default: 0
-    t.integer :gw_image_id,    null: false, default: 0
 end

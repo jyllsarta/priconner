@@ -2,5 +2,4 @@ create_table "stages", force: :cascade do |t|
     t.integer :area,            null: false, default: 0
     t.integer :location,        null: false, default: 0
     t.integer :is_hard,         null: false, default: 0
-    t.integer :require_stamina, null: false, default: 0
 end
