@@ -1,5 +1,8 @@
 - provide(:title , @character.name)
-= link_to "Charactersに戻る", characters_path 
+- provide(:url , character_url(@character))
+- provide(:image_path, root_url+@character.image_path)
+
+= link_to "Charactersに戻る", characters_path
 h1
   = "Characters##{@character.id}"
 dl

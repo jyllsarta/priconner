@@ -1,5 +1,6 @@
 head
   = render "layouts/shims"
+  = render partial: "layouts/ogp", locals: {title: (yield :title), url: (yield :url), image_path: (yield :image_path)}
 body
   = render "layouts/common_header"
   = yield

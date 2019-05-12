@@ -22,7 +22,7 @@
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get "/", to: "top_pages#index"
+  root to: "top_pages#index"
   resources :characters, only: [:index, :show]
   resources :forges, only: [:index, :show]
   resources :equips, only: [:index, :show]

@@ -1,4 +1,7 @@
 - provide(:title , @item.name)
+- provide(:url, item_url(@item))
+- provide(:image_path, root_url+@item.image_path)
+
 = link_to "Itemsに戻る", items_path 
 h1
   = @item.name
