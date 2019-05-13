@@ -17,24 +17,34 @@ ul.parameters
 
 h2
   | 素材
-.item_box
-  - @item.forges.each do |forge|
-    = render partial: "partials/item_with_amount", locals: {item: forge.material_item, amount: forge.count}
+- unless @item.forges.empty?
+  .item_box
+    - @item.forges.each do |forge|
+      = render partial: "partials/item_with_amount", locals: {item: forge.material_item, amount: forge.count}
+- else
+  | 素材はありません (直ドロップするアイテムかも？)
 
 h2
   | 真の素材
-.item_box
-  - @item.accumulate_all_materials.each do |forge|
-    = render partial: "partials/item_with_amount", locals: {item: forge.material_item, amount: forge.count}
+- unless @item.accumulate_all_materials.empty?
+  .item_box
+    - @item.accumulate_all_materials.each do |forge|
+      = render partial: "partials/item_with_amount", locals: {item: forge.material_item, amount: forge.count}
+- else
+  | 素材はありません (直ドロップするアイテムかも？)
 
 
 h2
   | 産地
-ul
-  - @item.producing_stages.each do |stage|
-    a href="/stages/#{stage.id}"
-      li
-        = "#{stage.area} - #{stage.location}#{:H.to_s if stage.is_hard == 1}"
+
+- unless @item.producing_stages.empty?
+  ul
+    - @item.producing_stages.each do |stage|
+      a href="/stages/#{stage.id}"
+        li
+          = stage.name
+- else
+  | ドロップ情報がありません(area1~8のデータがないのでなので多分そこで落ちてます...)
 
 h2
   | 以下の装備の素材だよ
