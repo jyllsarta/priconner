@@ -14,4 +14,12 @@ class Stage < ApplicationRecord
   def name
     self.is_hard? ? "#{area}-#{location}(HARD)" : "#{area}-#{location}"
   end
+
+  def main_drops
+    drops.where("priority <= 3")
+  end
+
+  def sub_drops
+    drops.where("priority > 3")
+  end
 end

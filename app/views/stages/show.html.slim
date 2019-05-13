@@ -1,13 +1,25 @@
-- provide(:title , @stage.id.to_s)
+- provide(:title , @stage.name)
 - provide(:url, stage_url(@stage))
 - provide(:image_path, ogp_image)
 
-= link_to "Stagesに戻る", stages_path
+= link_to "ドロップ一覧へ", stages_path
 h1
-  = "Stages##{@stage.id}"
-dl
-  - @stage.attributes.each do |key, value|
-    dt
-      = key
-    dd
-      = value
+  = @stage.name
+
+h2
+  | メインドロップ
+
+table
+  tr
+    td
+      - @stage.main_drops.each do |drop|
+        = render partial: "partials/item", locals: {item: drop.item}
+
+h2
+  | サブドロップ
+
+table
+  tr
+    td
+      - @stage.sub_drops.each do |drop|
+        = render partial: "partials/item", locals: {item: drop.item}
