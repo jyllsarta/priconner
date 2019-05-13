@@ -11,9 +11,9 @@ h1
 h2
   | パラメータ
 
-ul.item_parameters
+ul.parameters
   - @item.affective_parameters.each do |key, value|
-    = render partial: "partials/item_parameter", locals: {name: Item.parameters[key], value: value}
+    = render partial: "partials/parameter", locals: {name: Item.parameters[key], value: value}
 
 h2
   | 素材

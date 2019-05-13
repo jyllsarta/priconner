@@ -2,15 +2,21 @@
 - provide(:url , character_url(@character))
 - provide(:image_path, root_url+@character.image_path)
 
-= link_to "Charactersに戻る", characters_path
+= link_to "キャラ一覧に戻る", characters_path
 h1
-  = "Characters##{@character.id}"
-dl
-  - @character.attributes.each do |key, value|
-    dt
-      = key
-    dd
-      = value
+  = @character.name
+
+= render partial: "partials/character", locals: {character: @character}
+
+h2
+  | 基本情報
+
+ul.parameters
+  = render partial: "partials/parameter", locals: {name: "初期レアリティ", value: @character.initial_rarity}
+  = render partial: "partials/parameter", locals: {name: "立ち位置", value: @character.place}
+
+h2
+  | 装備
 
 table
   tr
