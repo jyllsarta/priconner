@@ -1,7 +1,7 @@
 # == Route Map
 #
 #                    Prefix Verb URI Pattern                                                                              Controller#Action
-#                           GET  /                                                                                        top_pages#index
+#                      root GET  /                                                                                        top_pages#index
 #                characters GET  /characters(.:format)                                                                    characters#index
 #                 character GET  /characters/:id(.:format)                                                                characters#show
 #                    forges GET  /forges(.:format)                                                                        forges#index

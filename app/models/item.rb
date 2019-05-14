@@ -4,8 +4,6 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string           default(""), not null
-#  category    :integer          default(0), not null
-#  is_material :boolean          default(FALSE), not null
 #  hp          :integer          default(0), not null
 #  atk         :integer          default(0), not null
 #  def         :integer          default(0), not null
@@ -21,8 +19,8 @@
 #  hit         :integer          default(0), not null
 #  eva         :integer          default(0), not null
 #  drain       :integer          default(0), not null
-#  gw_image_id :integer          default(0), not null
-#  gw_page_id  :integer          default(0), not null
+#  category    :integer          default(0), not null
+#  is_material :boolean          default(FALSE), not null
 #  rank        :integer          default(0), not null
 #
 
