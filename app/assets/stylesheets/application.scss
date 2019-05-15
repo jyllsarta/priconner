@@ -16,6 +16,7 @@
 
 $gray1: #efefef;
 $gray2: #a0a0a0;
+$gray3: #c0c0c0;
 $black: #333333;
 $main: #80569c;
 $accent: #58c175;
@@ -55,6 +56,15 @@ h2{
   width: 80%;
 }
 
+h3{
+  font-size: 1.2em;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  border-left: 10px solid $gray2;
+  padding-left: 10px;
+  width: 80%;
+}
+
 header{
   width: 100%;
   .header_image{
@@ -65,7 +75,10 @@ header{
     flex-direction: row;
     flex-wrap: wrap;
     .item{
-      padding: 10px;
+      margin: 0px 10px 0px 10px;
+      padding: 5px 10px 5px 10px;
+      border-left: 10px solid $gray2;
+      border-bottom: 1px solid $gray2;
     }
   }
 }

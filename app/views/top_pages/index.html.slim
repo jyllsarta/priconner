@@ -3,10 +3,52 @@
 - provide(:image_path, ogp_image)
 
 h1
-  | トップ画面
+  | プリコネRアイテム素材効率劇場/トップ
+
+h2
+  | 便利リンク
+
 div
-  = link_to  "characters", characters_path
+  = link_to  "キャラ", characters_path
 div
-  = link_to  "items", items_path
+  = link_to  "アイテム", items_path
 div
-  = link_to  "stages", stages_path
+  = link_to  "ドロップ", stages_path
+
+
+h2
+  | 概要
+
+p
+  | プリコネRの素材集め・装備周りに特化したデータベースです。スプレッドシートに用意したマスタデータ(運営もこんなようなデータ構造で作ってるでしょ、というのを推測して作ってます)を読み込んで内部にDBを持ち、それにもとに表示しているので柔軟な検索やデータ追加が可能です。
+
+
+h2
+  | 開発情報
+
+p
+  | ローカルで動作させることもできます。 rails とその他環境が必要になります。 priconner リポジトリにインストール方法をまとめているのでそちらをどうぞ。
+
+p
+  | (このページはt2.micro インスタンス上で動いているのでキャパ相当低いはずです...)
+
+h3
+  | GitHub リポジトリ(本体)
+
+= link_to "https://github.com/jyllsarta/priconner", "https://github.com/jyllsarta/priconner"
+
+h3
+  | GitHub リポジトリ(マスタデータ)
+
+= link_to "https://github.com/jyllsarta/priconeer-masterdata", "https://github.com/jyllsarta/priconeer-masterdata"
+
+h3
+  | GitHub リポジトリ(静的ファイル) ※これだけprivateです
+
+= link_to "https://github.com/jyllsarta/priconeer-binary", "https://github.com/jyllsarta/priconeer-binary"
+
+h3
+  | spreadsheet マスタデータ
+
+= link_to "Items google spreadsheet", "https://docs.google.com/spreadsheets/d/1oLsj8Gc-UWq0EXf0wfzrikgXlCaON5qvNJ5O3ouvc8Y/edit#gid=1060874286"
+
