@@ -1,7 +1,7 @@
-# load env
+echo "# load env"
 source ~/.bash_profile
 
-# code update
+echo "# code update"
 cd ~/priconner
 git pull
 cd masterdata/
@@ -9,14 +9,14 @@ git pull
 cd ~/priconner/public/images/
 git pull
 
-# migrate
+echo "# migrate"
 rails db:ridgepole:apply
 
-# seed
-RAILS_ENV=production bin/rails db:seed
+echo "# seed"
+RAILS_ENV=production rails db:seed
 
-# precompile asset
+echo "# precompile asset"
 bundle exec rake assets:precompile
 
-# run server
-sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production bin/rails s
+echo "# run server"
+sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production rails s
