@@ -10,7 +10,7 @@ cd ~/priconner/public/images/
 git pull
 
 # migrate
-bundle exec ridgepole -c config/database.yml -E production --apply -f db/Schemafile
+rails db:ridgepole:apply
 
 # seed
 RAILS_ENV=production bin/rails db:seed

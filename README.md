@@ -20,7 +20,7 @@
 ```shell
 bundle install
 rails db:create
-bundle exec ridgepole -c config/database.yml -E development --apply -f db/Schemafile
+rails db:ridgepole:apply
 ```
 
 ### seed
@@ -55,7 +55,7 @@ sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production bin/rails s
 
 ## Schema update
 
-* `bundle exec ridgepole -c config/database.yml -E development --apply -f db/Schemafile`
+* `rails db:ridgepole:apply`
 
 * `bundle exec annotate`
 
@@ -79,7 +79,7 @@ tmux a -t "production-home"
 cd ~/priconner/masterdata
 git pull
 cd ~/priconner
-bundle exec ridgepole -c config/database.yml -E production --apply -f db/Schemafile
+rails db:ridgepole:apply
 RAILS_ENV=production bin/rails db:seed
 ```
 
