@@ -10,7 +10,7 @@ cd ~/priconner/public/images/
 git pull
 
 echo "# migrate"
-rails db:ridgepole:apply
+RAILS_ENV=production rails db:ridgepole:apply
 
 echo "# seed"
 RAILS_ENV=production rails db:seed
