@@ -2,12 +2,12 @@ echo "# load env"
 source ~/.bash_profile
 
 echo "# code update"
-cd ~/priconner
 git pull
 cd masterdata/
 git pull
-cd ~/priconner/public/images/
+cd ../public/images/
 git pull
+cd ../../
 
 echo "# migrate"
 RAILS_ENV=production rails db:ridgepole:apply
