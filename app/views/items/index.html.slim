@@ -1,12 +1,20 @@
 - provide(:title , "Items")
 - provide(:url , items_url)
 - provide(:image_path, ogp_image)
+
 h1
-  | Items
-- @items_sorted_by_rank.each do |key, items|
+  | アイテム一覧
+
+p
+  = link_to "ランクから探す", items_path
+
+p
+  = link_to "カテゴリから探す", items_path(sort_key: :category)
+
+- @items_sorted.each do |key, items|
   - unless items.empty?
     h2
-      | rank #{items.first.rank}
+      = @index_lambda.call(key)
     .item_box
       - items.each do |item|
         = render partial: "partials/item", locals: {item: item}
