@@ -21,4 +21,13 @@ class Stage < ApplicationRecord
   def sub_drops
     drops.where("priority > 3")
   end
+
+  # 一石二鳥 = これらのアイテムを2つ以上このステージで回収できるか？
+  def serving_two_ends?(items)
+    (drops.pluck(:item_id) & items.pluck(:id)).count >= 2
+  end
+
+  def self.serving_stages(items)
+    self.includes(:drops).select{|stage| stage.serving_two_ends?(items)}
+  end
 end
