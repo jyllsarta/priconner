@@ -1,20 +1,5 @@
 - if item.present?
   a href="/items/#{item.id}"
-    .item_partial
-      .name.text
-        | #{item.name[0..5]}
-      .id.text
-        | #{item.id}
-      .is_material.text
-        = item.is_material? ? "材" : "完"
-      img.image src="#{item.image_path}"
+    = render partial: "partials/item_content", locals: {name: item.name, id: item.id, is_material: item.is_material, image_path: item.image_path}
 - else
-  a href="/items/#{0}"
-    .item_partial
-      .name.text
-        | ぬるぽ！
-      .id.text
-        | 0
-      .is_material.text
-        | 材
-      img.null_image
+  = render partial: "partials/item_content", locals: {name: "ぬるぽ！", id: 0, is_material: false, image_path: ""}

@@ -1,0 +1,8 @@
+.item_partial
+  .name.text
+    | #{name[0..5]}
+  .id.text
+    | #{id}
+  .is_material.text
+    = is_material ? "材" : "完"
+  img.image src="#{image_path}"
