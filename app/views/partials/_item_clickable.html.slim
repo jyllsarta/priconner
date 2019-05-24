@@ -1,0 +1,5 @@
+.clickable_item
+  - if item.present?
+    = render partial: "partials/item_content", locals: {name: item.name, id: item.id, is_material: item.is_material, image_path: item.image_path}
+  - else
+    = render partial: "partials/item_content", locals: {name: "ぬるぽ！", id: 0, is_material: false, image_path: ""}

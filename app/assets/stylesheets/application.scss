@@ -177,3 +177,10 @@ header{
 .tweet{
   margin-top: 20px;
 }
+
+.clickable_item{
+  border: 2px solid transparent;
+}
+.selected{
+  border: 2px solid $accent;
+}

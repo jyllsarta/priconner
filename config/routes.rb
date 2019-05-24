@@ -26,4 +26,5 @@ Rails.application.routes.draw do
   resources :characters, only: [:index, :show]
   resources :items, only: [:index, :show]
   resources :stages, only: [:index, :show]
+  resources :wishlists, only: [:index]
 end

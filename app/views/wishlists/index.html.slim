@@ -1,0 +1,21 @@
+- provide(:title , "wishlists")
+- provide(:url , wishlists_url)
+- provide(:image_path, ogp_image)
+
+h1
+  | 欲しいものからステージ検索
+
+p
+  | 欲しいアイテムを任意の数選択して、下の検索するボタンを押すと
+  b
+    | そのうち2つ以上を一度に集められる場所を
+  | リストアップします
+
+// items#indexとコード重複してるのを回避したほうがいいかもしれないが要検討 今後機能的に分岐する可能性全然ありそう
+- @items_sorted.each do |key, items|
+  - unless items.empty?
+    h2
+      = @index_lambda.call(key)
+    .item_box
+      - items.each do |item|
+        = render partial: "partials/item_clickable", locals: {item: item}
