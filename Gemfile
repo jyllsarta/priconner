@@ -69,3 +69,5 @@ gem 'ridgepole'
 gem 'annotate'
 gem 'google_drive'
 gem 'activerecord-import'
+
+gem "jquery-rails"
