@@ -18,8 +18,24 @@ p
       = @index_lambda.call(key)
     .item_box
       - items.each do |item|
-        = render partial: "partials/item_clickable", locals: {item: item, selected: item.id.in?(@selected_item_ids)}
+        = render partial: "partials/item_clickable", locals: {item: item, selected: item.in?(@selected_items)}
 
 = form_tag("/wishlists", method: :get)
   = hidden_field_tag :item_ids, []
   = submit_tag "検索する"
+
+h2
+  | 検索結果
+
+h3
+  | 欲しいものリスト
+
+// items の次元でpartial化したほうがいいのかもしれない
+.item_box
+  - @selected_items.each do |item|
+    = render partial: "partials/item", locals: {item: item}
+
+h3
+  | これらを2つ以上同時に集められるステージ一覧
+
+= render partial: "partials/stages", locals: {stages: @serving_stages}

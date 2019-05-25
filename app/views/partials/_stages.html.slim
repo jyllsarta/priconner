@@ -1,0 +1,9 @@
+table
+  - stages.each do |stage|
+    tr
+      td
+        = link_to "#{stage.name}", stage_path(stage.id)
+      // order(:priority) はpreloadの意味がなくなるのでsort_byでソートする
+      - stage.drops.sort_by(&:priority).each do |drop|
+        td
+          = render partial: "partials/item", locals: {item: drop.item}
