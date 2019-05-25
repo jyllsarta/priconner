@@ -18,4 +18,8 @@ p
       = @index_lambda.call(key)
     .item_box
       - items.each do |item|
-        = render partial: "partials/item_clickable", locals: {item: item}
+        = render partial: "partials/item_clickable", locals: {item: item, selected: item.id.in?(@selected_item_ids)}
+
+= form_tag("/wishlists", method: :get)
+  = hidden_field_tag :item_ids, []
+  = submit_tag "検索する"

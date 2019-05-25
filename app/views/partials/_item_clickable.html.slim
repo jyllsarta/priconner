@@ -1,4 +1,4 @@
-.clickable_item
+div class=(selected ? "clickable_item selected" : "clickable_item")
   - if item.present?
     = render partial: "partials/item_content", locals: {name: item.name, id: item.id, is_material: item.is_material, image_path: item.image_path}
   - else
