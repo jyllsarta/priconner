@@ -38,11 +38,7 @@ h2
   | 産地
 
 - unless @item.producing_stages.empty?
-  ul
-    - @item.producing_stages.each do |stage|
-      a href="/stages/#{stage.id}"
-        li
-          = stage.name
+  = render partial: "partials/stages", locals: {stages: @item.producing_stages}
 - else
   | ドロップ情報がありません(area1~8のデータがないのでなので多分そこで落ちてます...)
 
