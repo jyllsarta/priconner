@@ -20,6 +20,9 @@ $gray3: #c0c0c0;
 $black: #333333;
 $main: #80569c;
 $accent: #58c175;
+$up: #4a4ae4;
+$down: #e44e66;
+
 
 body{
   max-width: 800px;
@@ -174,6 +177,35 @@ header{
     .value{
       display: inline-block;
       width: 100px;
+    }
+  }
+}
+
+
+.parameter_diff_box{
+  display: flex;
+  width: 80%;
+  .parameter_diffs{
+    width: 40%;
+    .positive{
+      color: $up;
+    }
+    .negative{
+      color: $down;
+    }
+    .header{
+      border-bottom: 1px solid $gray3;
+    }
+    .parameter_diff{
+      .name{
+        width: 50%;
+        display: inline-block;
+      }
+      .value{
+        font-weight: bold;
+        width: 50%;
+        display: inline-block;
+      }
     }
   }
 }
