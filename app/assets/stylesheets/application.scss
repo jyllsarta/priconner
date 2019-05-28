@@ -43,6 +43,10 @@ body{
   }
 }
 
+p{
+  margin-bottom: 10px;
+}
+
 b{
   font-weight: bold;
 }
@@ -184,9 +188,9 @@ header{
 
 .parameter_diff_box{
   display: flex;
-  width: 80%;
+  width: 90%;
   .parameter_diffs{
-    width: 40%;
+    width: 45%;
     .positive{
       color: $up;
     }
@@ -198,12 +202,12 @@ header{
     }
     .parameter_diff{
       .name{
-        width: 50%;
+        width: 55%;
         display: inline-block;
       }
       .value{
         font-weight: bold;
-        width: 50%;
+        width: 45%;
         display: inline-block;
       }
     }
@@ -219,4 +223,15 @@ header{
 }
 .selected{
   border: 2px solid $accent;
+}
+
+.rank_diff_index_box{
+  display: flex;
+  width: 100%;
+  .character{
+    flex-grow: 1;
+  }
+  .parameter{
+    flex-grow: 4;
+  }
 }

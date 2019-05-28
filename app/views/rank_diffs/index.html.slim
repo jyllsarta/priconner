@@ -1,0 +1,32 @@
+- provide(:title , "ランクごとのステータス比較")
+- provide(:url , rank_diffs_url)
+- provide(:image_path, ogp_image)
+
+h1
+  | ランク比較
+
+p
+  | 最新rankと、その一つ前の比較を行います。他の攻略サイト同様、装備は最大強化時のパラメータを参照します。
+
+p
+  | 最新rank以外からの上昇を確認する場合にはキャラ個別ページをご確認ください。2つ下のランクまで確認できます。
+
+p
+  | キャラの並び順のとおりに並んでいます。
+
+p
+  | CSSは...そのまああとで整えるので先に機能だけリリースさせてください...
+
+h2
+  | 前衛
+- @front_characters.each do |character|
+  = render partial: "partials/parameter_diff_with_character_profile", locals: {character: character, rank: (character.max_rank - 1)}
+
+h2
+  | 中衛
+- @middle_characters.each do |character|
+  = render partial: "partials/parameter_diff_with_character_profile", locals: {character: character, rank: (character.max_rank - 1)}
+h2
+  | 後衛
+- @back_characters.each do |character|
+  = render partial: "partials/parameter_diff_with_character_profile", locals: {character: character, rank: (character.max_rank - 1)}

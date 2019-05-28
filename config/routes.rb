@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
   resources :stages, only: [:index, :show]
   resources :wishlists, only: [:index]
+  resources :rank_diffs, only: [:index]
 end

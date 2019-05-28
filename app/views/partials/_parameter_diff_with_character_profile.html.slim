@@ -1,0 +1,7 @@
+h3
+  = link_to character.name, character_path(character)
+.rank_diff_index_box
+  .character
+    = render partial: "partials/character", locals: {character: character}
+  .parameter
+    = render partial: "partials/parameter_diff_box", locals: {character: character, rank: rank}
