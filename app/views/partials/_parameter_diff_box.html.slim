@@ -3,9 +3,9 @@
     li.header
       | 上昇パラメータ
     - character.rank_diffs(rank).select{|_,v| v.positive?}.each do |key, value|
-      = render partial: "partials/parameter_diff", locals: {name: Item.parameters[key], value: value} unless value.zero?
+      = render partial: "partials/parameter_diff", locals: {name: Item.parameters[key], value: value, important: character.important?(key.to_sym)} unless value.zero?
   ul.parameter_diffs
     li.header
       | 下降パラメータ
     - character.rank_diffs(rank).select{|_,v| v.negative?}.each do |key, value|
-      = render partial: "partials/parameter_diff", locals: {name: Item.parameters[key], value: value} unless value.zero?
+      = render partial: "partials/parameter_diff", locals: {name: Item.parameters[key], value: value, important: character.important?(key.to_sym)} unless value.zero?

@@ -64,4 +64,26 @@ class Character < ApplicationRecord
   def image_path
     "/images/characters/#{self.id}.png"
   end
+
+  def important_parameters
+    # TP上昇は誰にとっても重要
+    parameters = [:tpgain]
+
+    # 役割に重要なパラメータを追加
+    case role
+    when "attacker"
+      parameters += [:atk, :cri]
+    when "magic_attacker"
+      parameters += [:matk, :mcri]
+    when "defender"
+      parameters += [:hp, :def, :mdef, :eva]
+    when "healer"
+      parameters += [:healgain, :matk]
+    end
+    parameters
+  end
+
+  def important?(parameter_symbol)
+    parameter_symbol.in? important_parameters
+  end
 end

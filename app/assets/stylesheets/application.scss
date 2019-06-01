@@ -201,6 +201,9 @@ header{
       border-bottom: 1px solid $gray3;
     }
     .parameter_diff{
+      .important_parameter{
+        font-weight: bold;
+      }
       .name{
         width: 55%;
         display: inline-block;
