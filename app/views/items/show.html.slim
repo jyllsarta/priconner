@@ -51,6 +51,8 @@ h2
 
 h2
   | これが必要になるキャラ
+p
+  | #{@item.equip_characters.length}人
 ul
   - @item.equip_characters.each do |character|
     = render partial: "partials/character", locals: {character: character}

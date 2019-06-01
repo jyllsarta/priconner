@@ -16,6 +16,4 @@ function selectedItemIds(){
     return $(".selected .id").map(function(_, elem){ return parseInt(elem.innerText) }).toArray();
 }
 
-$(function() {
-    $(".clickable_item").click(onItemClicked);
-});
+$(document).on('ready page:load', function(){$(".clickable_item").click(onItemClicked);});
