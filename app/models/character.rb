@@ -5,13 +5,15 @@
 #  id             :integer          not null, primary key
 #  name           :string           default("0"), not null
 #  initial_rarity :integer          default(0), not null
-#  position       :decimal(, )      default(0.0), not null
 #  place          :integer          default(NULL), not null
+#  position       :decimal(, )      default(0.0), not null
+#  role           :integer          default(NULL), not null
 #
 
 class Character < ApplicationRecord
   has_many :equips
   enum place: { front: 1, middle: 2, back: 3 }
+  enum role: { attacker: 1, magic_attacker: 2, defender: 3, healer: 4}
 
   def max_rank
     equips.order(rank: :desc).first.rank
