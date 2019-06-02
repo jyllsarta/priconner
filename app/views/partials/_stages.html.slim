@@ -1,7 +1,7 @@
 table
   - stages.each do |stage|
     tr
-      td
+      td.stage_name
         = link_to "#{stage.name}", stage_path(stage.id)
       // order(:priority) はpreloadの意味がなくなるのでsort_byでソートする
       - stage.drops.sort_by(&:priority).each do |drop|

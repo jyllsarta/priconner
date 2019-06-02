@@ -23,8 +23,10 @@ $accent: #58c175;
 $up: #4a4ae4;
 $down: #e44e66;
 
+$item_size: 64px;
 
 body{
+  min-width: 640px;
   max-width: 800px;
   margin: 0px auto;
   border-left: 1px solid $gray2;
@@ -113,13 +115,13 @@ header{
 .item_with_amount{
   position: relative;
   margin: 5px;
-  width: 128px;
-  height: 64px;
+  width: $item_size * 2;
+  height: $item_size;
   display: flex;
   flex-direction: row;
   .amount{
-    width: 64px;
-    height: 64px;
+    width: $item_size;
+    height: $item_size;
     display: flex;
     align-items: flex-end;
   }
@@ -128,8 +130,8 @@ header{
 .item_partial{
   position: relative;
   display: inline-block;
-  width: 64px;
-  height: 64px;
+  width: $item_size;
+  height: $item_size;
   margin: 2px;
   .text{
     font-size: 8px;
@@ -155,13 +157,13 @@ header{
     right: 0px;
   }
   .image{
-    width: 64px;
-    height: 64px;
+    width: $item_size;
+    height: $item_size;
     z-index: 10;
   }
   .null_image{
-    width: 64px;
-    height: 64px;
+    width: $item_size;
+    height: $item_size;
     z-index: 10;
     background-color: $accent;
   }
@@ -236,5 +238,18 @@ header{
   }
   .parameter{
     flex-grow: 4;
+  }
+}
+
+td.stage_name{
+  width: 20%;
+  vertical-align: middle;
+  text-align: center;
+  line-height: $item_size;
+  a{
+    display: block;
+    width: 100%;
+    height: $item_size;
+    background-color: $gray1;
   }
 }

@@ -11,7 +11,7 @@
 class Stage < ApplicationRecord
   has_many :drops
   def name
-    self.is_hard? ? "#{area}-#{location}(HARD)" : "#{area}-#{location}"
+    self.is_hard? ? "#{area}-#{location}(H)" : "#{area}-#{location}"
   end
 
   def main_drops
