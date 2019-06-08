@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find_by(id: params[:id])
+    @producing_stages = Stage.includes(drops: [:item]).find(@item.producing_stage_ids)
     redirect_to item_path(@item.to_forged) if @item.is_material
   end
 end

@@ -37,8 +37,8 @@ h2
 h2
   | 産地
 
-- unless @item.producing_stages.empty?
-  = render partial: "partials/stages", locals: {stages: @item.producing_stages}
+- unless @producing_stages.empty?
+  = render partial: "partials/stages", locals: {stages: @producing_stages}
 - else
   | ドロップ情報がありません(area1~8のデータがないのでなので多分そこで落ちてます...)
 

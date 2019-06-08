@@ -39,6 +39,11 @@ class Item < ApplicationRecord
 
   has_many :equips
 
+  ACCUMULATED_MATERIALS_KEY = "accumulated_materials"
+  REQUIRED_FROM_KEY = "required_from"
+  EQUIP_CHARACTER_KEY = "equip_character"
+  PRODUCING_STAGE_IDS_KEY = "producing_stage_ids"
+
   enum category_text: {
     "剣": 1,
     "刀": 2,
@@ -86,19 +91,25 @@ class Item < ApplicationRecord
 
   # トータルで結局何が必要なのよ
   def accumulate_all_materials
-    self.forges.map(&:accumulate).flatten
+    cache_or_block("#{ACCUMULATED_MATERIALS_KEY}:#{self.id}") do
+      self.forges.map(&:accumulate).flatten
+    end
   end
 
   # これを必要とするアイテム一覧
   def required_from
-    self.required_from_recursive.flatten[(1..-1)]
+    cache_or_block("#{REQUIRED_FROM_KEY}:#{self.id}") do
+      self.required_from_recursive.flatten[(1..-1)]
+    end
   end
 
   # これが集められるところ
   # primary_material がドロップするステージか || 自分自身がドロップするステージ
-  def producing_stages
-    return stages if stages.exists?
-    primary_material&.stages || []
+  def producing_stage_ids
+    cache_or_block("#{PRODUCING_STAGE_IDS_KEY}:#{self.id}") do
+      return stages.ids if stages.exists?
+      primary_material&.stages&.ids|| []
+    end
   end
 
   def parameters
@@ -136,11 +147,13 @@ class Item < ApplicationRecord
 
   # これを装備するキャラたち
   def equip_characters
-    characters = []
-    characters.push(self.equips.map(&:character))
-    self.required_from.each do |item|
-      characters.push(item.equips.map(&:character))
+    cache_or_block("#{EQUIP_CHARACTER_KEY}:#{self.id}") do
+      characters = []
+      characters.push(self.equips.map(&:character))
+      self.required_from.each do |item|
+        characters.push(item.equips.map(&:character))
+      end
+      characters.flatten.uniq
     end
-    characters.flatten.uniq
   end
 end
