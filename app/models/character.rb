@@ -15,27 +15,31 @@ class Character < ApplicationRecord
   enum place: { front: 1, middle: 2, back: 3 }
   enum role: { attacker: 1, magic_attacker: 2, defender: 3, healer: 4}
 
+  RANK_DIFFS_KEY = "rank_diffs"
+
   def max_rank
     equips.order(rank: :desc).first.rank
   end
 
   # ランクを上げた際のパラメータ差分
   def rank_diffs(rank)
-    diffs = {}
-    # ぜんぜんDRYじゃないので直したいがそういう頭の回り方をする日じゃないので保留
-    # あとこれwherechainが更新されちゃってpreloadが効かなくなるのでN+1誘発しやすい書き方なのも良くない
-    equips.where(rank: rank).each do |equip|
-      equip&.item&.parameters&.map{|key, value| diffs[key] ||= 0; diffs[key] -= value}
-    end
+    cache_or_block("#{RANK_DIFFS_KEY}:#{self.id}:#{rank}") do
+      diffs = {}
+      # ぜんぜんDRYじゃないので直したいがそういう頭の回り方をする日じゃないので保留
+      # あとこれwherechainが更新されちゃってpreloadが効かなくなるのでN+1誘発しやすい書き方なのも良くない
+      equips.where(rank: rank).each do |equip|
+        equip&.item&.parameters&.map{|key, value| diffs[key] ||= 0; diffs[key] -= value}
+      end
 
-    equips.where("rank > #{rank}").where("rank < #{self.max_rank}").each do |equip|
-      equip&.item&.parameters&.map{|key, value| diffs[key] ||= 0; diffs[key] += value}
-    end
+      equips.where("rank > #{rank}").where("rank < #{self.max_rank}").each do |equip|
+        equip&.item&.parameters&.map{|key, value| diffs[key] ||= 0; diffs[key] += value}
+      end
 
-    equips.where(rank: self.max_rank).each do |equip|
-      equip&.item&.parameters&.map{|key, value| diffs[key] ||= 0; diffs[key] += value * 2}
+      equips.where(rank: self.max_rank).each do |equip|
+        equip&.item&.parameters&.map{|key, value| diffs[key] ||= 0; diffs[key] += value * 2}
+      end
+      diffs
     end
-    diffs
   end
 
   def accumulate_equips_by_key(key)
