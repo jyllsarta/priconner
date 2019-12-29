@@ -54,7 +54,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 if ENV["RAILS_ENV"] == "production" && ENV["SSL_ENABLED"] == "y"
   cert = "/etc/letsencrypt/live/priconner.jyllsarta.net/fullchain.pem"
   key = "/etc/letsencrypt/live/priconner.jyllsarta.net/privkey.pem"
-  ssl_bind "0.0.0.0", 3443, cert: cert, key: key
+  ssl_bind "0.0.0.0", 443, cert: cert, key: key
 else
   port ENV.fetch("PORT") { 3000 }
 end
