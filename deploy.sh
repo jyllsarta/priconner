@@ -21,6 +21,10 @@ bundle exec rake assets:precompile
 echo "#clear cache"
 bundle exec rails r 'Rails.cache.clear'
 
-echo "# run server"
-#sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production rails s
-SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 SSL_ENABLED=y RAILS_ENV=production bundle exec pumactl start
+echo "kill older server(https)"
+PID=`ps ax | grep '[p]uma' | awk '{ print $1 }'`
+echo "older server is ${PID}"
+kill -9 ${PID}
+
+echo "start server"
+SECRET_KEY_BASE=$SECRET_KEY_BASE SSL_ENABLED=y RAILS_ENV=production bundle exec pumactl start
