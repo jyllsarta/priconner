@@ -54,17 +54,17 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 if ENV["RAILS_ENV"] == "production" && ENV["SSL_ENABLED"] == "y"
   cert = "/etc/letsencrypt/live/priconner.jyllsarta.net/fullchain.pem"
   key = "/etc/letsencrypt/live/priconner.jyllsarta.net/privkey.pem"
-  ssl_bind "0.0.0.0", 443, cert: cert, key: key
+  ssl_bind "0.0.0.0", 3443, cert: cert, key: key
 else
   port ENV.fetch("PORT") { 3000 }
 end
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
-daemonize
-pidfile "#{Dir.pwd}/tmp/pids/puma.pid"
-stdout_redirect "#{Dir.pwd}/log/puma.log", "#{Dir.pwd}/log/pumaerr.log", true
+#daemonize
+#pidfile "#{Dir.pwd}/tmp/pids/puma.pid"
+#stdout_redirect "#{Dir.pwd}/log/puma.log", "#{Dir.pwd}/log/pumaerr.log", true
 
-before_fork do
-  $split_factory.instance_variable_get(:@config).threads.each { |_, t| t.exit }
-end
+#before_fork do
+#  $split_factory.instance_variable_get(:@config).threads.each { |_, t| t.exit }
+#end
