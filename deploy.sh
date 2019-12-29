@@ -27,4 +27,6 @@ echo "older server is ${PID}"
 kill -9 ${PID}
 
 echo "start server"
-SECRET_KEY_BASE=$SECRET_KEY_BASE SSL_ENABLED=y RAILS_ENV=production bundle exec pumactl start
+#SECRET_KEY_BASE=$SECRET_KEY_BASE SSL_ENABLED=y RAILS_ENV=production bundle exec pumactl start
+SECRET_KEY_BASE=$SECRET_KEY_BASE RAILS_ENV=production bundle exec rails s -d
+
