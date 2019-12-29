@@ -22,4 +22,5 @@ echo "#clear cache"
 bundle exec rails r 'Rails.cache.clear'
 
 echo "# run server"
-sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production rails s
+#sudo SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 RAILS_ENV=production rails s
+SECRET_KEY_BASE=$SECRET_KEY_BASE PORT=80 SSL_ENABLED=y RAILS_ENV=production bundle exec pumactl start
